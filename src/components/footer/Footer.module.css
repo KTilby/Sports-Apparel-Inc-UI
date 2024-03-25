@@ -1,0 +1,23 @@
+.footer {
+  align-items: center;
+  background-color: var(--ghost-white-color);
+  box-shadow: 3px 3px 5px 5px rgba(0, 0, 0, 0.25);
+  display: flex;
+  font-family: var(--body-font);
+  height: 100px;
+  justify-content: center;
+  width: 100%;
+  margin-top: 40px;
+  /* position: fixed;
+  bottom: 0; */
+}
+
+.footerBox {
+  width: 95%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.content {
+  color: var(--cadet-blue-color);
+}
