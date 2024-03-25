@@ -1,0 +1,29 @@
+.button {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  grid-column: 38;
+  grid-row: 1;
+  color: #1F3770;
+  background-color: #FAFAFF;
+  border: 3px solid #1F3770;
+  z-index: 75;
+  margin-top: 10px;
+}
+
+.buttonUnstyled {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.viewButton {
+  border: none;
+  font-family: var(--body-font);
+  font-weight: 600;
+  width: 100px;
+  cursor: pointer;
+  padding: 5px;
+}

@@ -1,0 +1,21 @@
+.displayedProducts {
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.displayedProductsList {
+    display: flex;
+    gap: 20px;
+}
+
+.heading {
+    color: var(--jet-black-color);
+    font-family: "Lato", sans-serif;
+    text-wrap: nowrap;
+}
+
+.title {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}

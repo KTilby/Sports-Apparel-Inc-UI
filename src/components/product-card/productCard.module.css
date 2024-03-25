@@ -1,0 +1,59 @@
+.root {
+    height: 400px;
+    width: 250px;
+    text-align: left;
+    font-family: var(--body-font);
+}
+
+.header {
+    padding: 5px;
+    justify-content: center;
+    display: flex;
+}
+
+.title {
+    font-family: var(--body-font);
+    font-weight: 600;
+}
+
+.subheader {
+    font-family: var(--body-font);
+    font-size: .75em;
+}
+
+.typography {
+    font-family: var(--body-font);
+    color: var(--jet-black-color)
+}
+
+.media {
+    height: 150px;
+    padding-top: '56.25%';
+    margin-top: 10px;
+}
+
+.action {
+    width: max-content;
+}
+
+.settingsButton {
+    padding: 0px;
+    margin-top: 10px;
+    margin-right: 5px;
+}
+
+.expand {
+    transform: 'rotate(0deg)';
+    margin-left: 'auto';
+    /* transition: theme.transitions.create('transform', {
+      duration: theme.transitions.duration.shortest
+    }) */
+}
+
+/* expandOpen: {
+    transform: 'rotate(180deg)'
+  }, */
+.avatar {
+    background-color: var(--flame-orange-color);
+    font-family: var(--body-font);
+}
