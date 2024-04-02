@@ -1,11 +1,17 @@
-.displayedProducts {
+.displayedProducts, .noBackground {
     margin-bottom: 20px;
-    width: 100%;
+    width: calc(100% - 60px);
+    padding: 5px 30px 30px 30px;
+    background: linear-gradient(325deg, rgba(197, 197, 198, 1) 0%, rgba(233, 235, 237, 1) 48%);
+}
+
+.noBackground {
+    background: none;
 }
 
 .displayedProductsList {
     display: flex;
-    gap: 20px;
+    justify-content: space-between;
 }
 
 .heading {
@@ -17,5 +23,5 @@
 .title {
     display: flex;
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }

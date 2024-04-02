@@ -1,28 +1,20 @@
 .headerContainer {
   background-color: var(--ghost-white-color);
+  box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.25);
   font-family: var(--body-font);
-  font-size: 1.2rem;
+  font-size: 1.2em;
   font-weight: var(--font-bold);
   height: 100px;
   width: 100%;
-  box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.25);
 }
 
-/*** Navigation Bar ***/
 .navContainer {
   align-items: center;
   display: flex;
   height: 100%;
-  margin: 0 auto;
+  justify-content: space-between;
+  margin: 0px auto;
   width: 95%;
-}
-
-/*---------------------
-    Navigation Logo
-  -----------------------*/
-.logoImage {
-  align-items: center;
-  display: flex;
 }
 
 /*----------------------
@@ -31,9 +23,6 @@
 .navItem {
   color: var(--yale-blue-color);
   cursor: pointer;
-  display: flex;
-  flex: 0 0 auto;
-  justify-content: space-between;
   text-decoration: none;
   text-transform: uppercase;
 }
@@ -44,17 +33,25 @@
   color: var(--flame-orange-color) !important;
 }
 
-.navList {
-  column-gap: 2.5rem;
+.navGroup {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  list-style: none;
-  margin-left: 7%;
+  gap: 2.5em;
+  margin-left: auto;
 }
 
-.navList:first-of-type {
-  margin-left: 20%;
+.imageContainer {
+  display: flex;
+}
+
+.navList {
+  align-items: center;
+  display: flex;
+  gap: 2.5em;
+  list-style: none;
+}
+
+.navList:last-of-type {
+  gap: 1.5em;
 }
 
 .shoppingCart {
@@ -64,6 +61,17 @@
 
 .shoppingCartActive {
   color: var(--flame-orange-color);
+}
+
+.shoppingCartCustomBadge {
+  background-color: var(--flame-orange-color);
+  color: var(--ghost-white-color);
+  font-family: var(--body-font);
+}
+
+.shoppingCartRoot {
+  height: 1.75rem;
+  width: auto;
 }
 
 /* Responsive Styles */

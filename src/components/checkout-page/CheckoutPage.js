@@ -6,7 +6,12 @@ import ReviewOrderWidget from './ReviewOrderWidget';
 import DeliveryAddress from './forms/DeliveryAddress';
 import BillingDetails from './forms/BillingDetails';
 import makePurchase from './CheckoutService';
+import Button from '../button/Button';
 
+/*
+*****As of 3/29/2024: This module is not currently being utilized. It is here for reference
+     of functionality that was originally connected from original product
+*/
 /**
  * @name CheckoutPage
  * @description A view that contains details needed to process a transaction for items
@@ -103,9 +108,9 @@ const CheckoutPage = () => {
         />
       </div>
       <div className={styles.payNow}>
-        <button onClick={handlePay} type="button" className={styles.payButton}>
+        <Button onClick={handlePay} type="button" className="payButton">
           Checkout
-        </button>
+        </Button>
       </div>
     </div>
   );

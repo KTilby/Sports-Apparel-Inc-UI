@@ -1,0 +1,10 @@
+.label {
+    display: inline;
+    text-wrap: nowrap;
+    font-size: 16px;
+}
+
+.input[type="checkbox"] {
+    margin-right: 4px;
+    accent-color: #1F3770;
+}

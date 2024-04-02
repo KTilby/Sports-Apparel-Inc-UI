@@ -2,6 +2,10 @@ import React from 'react';
 import styles from './OrderItem.module.css';
 import { toPrice } from './ReviewOrderWidgetService';
 
+/*
+*****As of 3/29/2024: This module is not currently being utilized. It is here for reference
+     of functionality that was originally connected from original product
+*/
 /**
  * @name OrderItem
  * @description Displays an order row

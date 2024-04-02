@@ -1,21 +1,18 @@
 import React from 'react';
-// import { makeStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardHeader from '@material-ui/core/CardHeader';
-import CardMedia from '@material-ui/core/CardMedia';
-import CardContent from '@material-ui/core/CardContent';
-import CardActions from '@material-ui/core/CardActions';
-import Avatar from '@material-ui/core/Avatar';
-import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
+import { Link } from 'react-router-dom';
+import {
+  Card, CardHeader, CardMedia, CardContent, CardActions,
+  Avatar, Typography
+} from '@material-ui/core';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import ShareIcon from '@material-ui/icons/Share';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
 import styles from './productCard.module.css';
-import Constants from '../../utils/constants';
 import { useCart } from '../checkout-page/CartContext';
 import Button from '../button/Button';
+import getImage from '../../utils/productImageControl';
+import cartService from '../checkout-page/CartService';
+import { getDemographicColor, getFirstCharacter } from '../../utils/common';
 
 /**
  * @name ProductCard
@@ -24,75 +21,71 @@ import Button from '../button/Button';
  * @return component
  */
 const ProductCard = ({ product, setOpen, setCurrentProd }) => {
-  const { dispatch } = useCart();
+  const { dispatch, state } = useCart();
 
-  const onAdd = () => {
-    dispatch({
-      type: 'add',
-      product: {
-        id: product.id,
-        title: product.name,
-        price: product.price,
-        description: product.description,
-        quantity: 1
-      }
-    });
-  };
-
-  function openModal() {
+  const openModal = () => {
     setOpen();
     setCurrentProd(product);
-  }
+  };
+
+  const handleAddToCart = () => {
+    cartService.addToCart(product, dispatch, state);
+  };
 
   return (
     <Card className={styles.root}>
-      <CardHeader
-        classes={{
-          root: styles.header,
-          title: styles.title,
-          subheader: styles.subheader,
-          action: styles.action
-        }}
-        avatar={(
-          <Avatar aria-label="demographics" className={styles.avatar}>
-            {product.demographic.charAt(0)}
-          </Avatar>
-        )}
-        action={(
-          <IconButton className={styles.settingsButton} aria-label="settings">
-            <MoreVertIcon />
-          </IconButton>
-        )}
-        title={product.name}
-        subheader={`${product.demographic} ${product.category}${'\n'} ${product.type}`}
-        titleTypographyProps={{ variant: 'h6' }}
-
-      />
-      <CardMedia
-        className={styles.media}
-        image={Constants.PLACEHOLDER_IMAGE}
-        title="placeholder"
-      />
-      <CardContent>
-        <Typography className={styles.typography} component="p">
-          {product.description}
-        </Typography>
-        <br />
-        <Typography className={styles.typography} component="p">
-          Price: $
-          {product.price}
-        </Typography>
-      </CardContent>
-      <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
-          <FavoriteIcon />
-        </IconButton>
-        <IconButton aria-label="share">
-          <ShareIcon />
-        </IconButton>
-        <IconButton aria-label="add to shopping cart" onClick={onAdd}>
-          <AddShoppingCartIcon />
-        </IconButton>
+      <Link to={`/products/${product.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+        <CardHeader
+          classes={{
+            root: styles.header,
+            title: styles.title
+          }}
+          avatar={(
+            <Avatar
+              aria-label="demographics"
+              className={styles.avatar}
+              style={{
+                backgroundColor: getDemographicColor(product.demographic)
+              }}
+            >
+              {getFirstCharacter(product.demographic)}
+            </Avatar>
+          )}
+          title={product.name}
+          titleTypographyProps={{ variant: 'h5' }}
+        />
+        <CardMedia
+          className={styles.media}
+          image={getImage(product.category)}
+          title={product.category}
+        />
+        <CardContent className={styles.cardContent}>
+          <Typography className={styles.subtitle}>
+            {product.demographic}
+            {' '}
+            {product.category}
+            {' '}
+            {product.type}
+          </Typography>
+          <Typography className={styles.typography}>
+            {product.description}
+          </Typography>
+          <Typography className={styles.typography}>
+            Price: $
+            {product.price}
+          </Typography>
+        </CardContent>
+      </Link>
+      <CardActions className={styles.buttonActions} disableSpacing>
+        <Button className="buttonUnstyled" aria-label="add to favorites">
+          <FavoriteIcon style={{ color: 'var(--flame-orange-color)', width: '30px', height: '30px' }} />
+        </Button>
+        <Button className="buttonUnstyled" aria-label="share">
+          <ShareIcon style={{ color: 'var(--flame-orange-color)', width: '30px', height: '30px' }} />
+        </Button>
+        <Button className="buttonUnstyled" aria-label="add to shopping cart" onClick={handleAddToCart}>
+          <AddShoppingCartIcon style={{ color: 'var(--flame-orange-color)', width: '30px', height: '30px' }} />
+        </Button>
         <Button className="viewButton" onClick={openModal} aria-label="view product details">
           View
         </Button>

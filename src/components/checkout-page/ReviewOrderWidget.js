@@ -1,8 +1,8 @@
 import React from 'react';
 import { useCart } from './CartContext';
-import OrderItem from './OrderItem';
-import { getSubtotal } from './ReviewOrderWidgetService';
-import styles from './ReviewOrderWidget.module.css';
+import OrderItem from './NewOrderItem';
+// import { getSubtotal } from './ReviewOrderWidgetService';
+// import styles from './ReviewOrderWidget.module.css';
 
 /**
  * @name ReviewOrderWidget
@@ -15,26 +15,21 @@ const ReviewOrderWidget = () => {
   } = useCart();
   return (
     <>
-      {products.map(({
-        price, title, description, quantity
-      }) => (
+      {products.map((product) => (
         <OrderItem
-          key={title}
-          price={price}
-          title={title}
-          description={description}
-          quantity={quantity}
+          key={product.id}
+          product={product}
         />
       ))}
-      <hr />
-      <div className={styles.subtotal}>
+      {/* <hr /> */}
+      {/* <div className={styles.subtotal}>
         <div>
           <p>Subtotal</p>
         </div>
         <div className={styles.price}>
           <p>{getSubtotal(products)}</p>
         </div>
-      </div>
+      </div> */}
     </>
   );
 };

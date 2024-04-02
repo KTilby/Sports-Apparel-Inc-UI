@@ -1,15 +1,17 @@
 import React, { useEffect, useRef } from 'react';
+import {
+  Card, Typography, CardMedia, CardHeader, Avatar
+} from '@material-ui/core';
 import styles from './Modal.module.css';
-import constants from '../../utils/constants';
 import Button from '../button/Button';
+import getImage from '../../utils/productImageControl';
+import { getDemographicColor, getFirstCharacter } from '../../utils/common';
 
 const Modal = ({ onClick, isOpen, product }) => {
   const currentProduct = product;
   const modalRef = useRef();
-  const primaryRef = useRef();
-  const secondaryRef = useRef();
-  const primColor = product.primaryColorCode;
-  const secondaryColor = product.secondaryColorCode;
+  const swatches = [product.primaryColorCode, product.secondaryColorCode];
+
   useEffect(() => {
     const handler = (e) => {
       if (isOpen && !modalRef.current.contains(e.target)) {
@@ -24,49 +26,93 @@ const Modal = ({ onClick, isOpen, product }) => {
 
   return (
     <div className={styles.modalBackdrop}>
-      <div ref={modalRef} className={styles.modal}>
-        <div className={styles.container}>
-          <h1 className={styles.name}>{currentProduct.name}</h1>
-          <Button className="button" onClick={onClick}>X</Button>
-          <img src={constants.PLACEHOLDER_IMAGE} alt="" className={styles.image} />
-          <div
-            ref={primaryRef}
-            style={
+      <Card className={styles.root} ref={modalRef}>
+        <CardHeader
+          classes={{
+            root: styles.header,
+            title: styles.title,
+            action: styles.action
+          }}
+          avatar={(
+            <Avatar
+              aria-label="demographics"
+              className={styles.avatar}
+              style={{
+                backgroundColor: getDemographicColor(product.demographic)
+              }}
+            >
+              {getFirstCharacter(product.demographic)}
+            </Avatar>
+        )}
+          action={(
+            <Button className="buttonUnstyled" onClick={onClick}>
+              <Typography style={{ fontSize: '1.75em' }}>X</Typography>
+            </Button>
+          )}
+          title={product.name}
+          titleTypographyProps={{ variant: 'h4' }}
+        />
+
+        <CardMedia
+          className={styles.media}
+          image={getImage(product.category)}
+          title={product.category}
+        />
+        <div className={styles.row}>
+          <div className={styles.column}>
+            <Typography className={styles.subtitle}>
+              {currentProduct.demographic}
+              {' '}
+              {currentProduct.category}
+              {' '}
+              {currentProduct.type}
+            </Typography>
+            <Typography className={styles.typography}>
+              {currentProduct.description}
+            </Typography>
+            <Typography className={styles.typography}>
+              {' '}
+              Price: $
+              {currentProduct.price}
+            </Typography>
+          </div>
+          <div className={styles.column}>
+            <div style={{ marginLeft: 'auto' }}>
+              <Typography className={styles.typography}>
+                Available In:
+              </Typography>
+              <div className={styles.row}>
+                {swatches.map((swatch) => (
+                  <div
+                    style={
             {
-              backgroundColor: primColor,
-              width: '60px',
-              height: '35px',
-              borderRadius: '10%',
-              gridRow: '3',
-              gridColumn: '2',
-              border: '2px solid #1F3770'
+              color: 'var(--jet-black-color)',
+              background: 'var(--ghost-white-color)',
+              borderRadius: '3px',
+              border: `1px solid ${swatch}`,
+              minWidth: '75px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              padding: '7px 10px',
+              marginRight: '10px',
+              marginTop: '5px',
+              textTransform: 'capitalize'
             }
             }
-          />
-          <div
-            ref={secondaryRef}
-            style={
-            {
-              backgroundColor: secondaryColor,
-              width: '60px',
-              height: '35px',
-              borderRadius: '10%',
-              gridRow: '3',
-              gridColumn: '3',
-              border: '2px solid #1F3770'
-            }
-            }
-          />
-          <h2 className={styles.demographic}>{currentProduct.demographic}</h2>
-          <h2 className={styles.category}>{currentProduct.category}</h2>
-          <h2 className={styles.type}>{currentProduct.type}</h2>
-          <h2 className={styles.price}>
-            Price: $
-            {currentProduct.price}
-          </h2>
-          <p className={styles.description}>{currentProduct.description}</p>
+                  >
+                    {swatch}
+                    <div style={{
+                      background: `${swatch}`, marginLeft: '10px', display: 'flex', width: '15px', height: '15px', borderRadius: '3px'
+                    }}
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
+      </Card>
     </div>
   );
 };

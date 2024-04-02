@@ -2,33 +2,46 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap');
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+/* * {
+  border: 1px solid red;
+} */
 
 body {
-  font-family: var(--body-font);
-  -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
   background-color: var(--ghost-white-color);
   display: flex;
   flex-direction: column;
+  font-family: var(--body-font);
+  font-size: 100%;
+  margin: 0px;
   min-height: 100vh;
+  padding: 0px;
+}
+
+html {
+  margin: 0px;
+  padding: 0px;
+}
+
+a {
+  text-decoration: none;
 }
 
 :root {
   /* Color Palette for Sports Apparel Inc */
-  --jet-black-color: #272B2B;
   --cadet-gray-color: #85919D;
-  --yale-blue-color: #1F3770;
-  --ghost-white-color: #FAFAFF;
   --flame-orange-color: #DD6031;
-
-  /* Font Styles */
-  --title-font: "BakBak One", cursive;
-  --body-font: "Lato", sans-serif;
   --font-bold: 600;
   --font-extra-bold: 900;
+  --ghost-white-color: #FAFAFF;
+  --jet-black-color: #272B2B;
+  --selective-yellow-color: #FFB60A;
+  --yale-blue-color: #1F3770;
+  --anti-flash-white-color: #E9EbED;
+  
+
+  /* Font Styles */
+  --body-font: "Lato", sans-serif;
+  --title-font: "BakBak One", cursive;
 }

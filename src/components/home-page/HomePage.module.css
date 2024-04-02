@@ -1,20 +1,9 @@
-.page {
-  width: 100%;
+.container {
+  width: calc(100% - 80px);
   display: flex;
   flex-direction: column;
   align-items: center;
-}
-
-.container {
-  margin-top: 40px;
-  text-align: center;
-  width: 90%;
-}
-
-.flexContainer {
-  align-self: start;
-  display: flex;
-  margin-top: 20px;
+  padding: 40px 40px 0px 40px;
 }
 
 .errMsg {

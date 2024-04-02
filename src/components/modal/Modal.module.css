@@ -1,111 +1,78 @@
-.demographic {
-  padding-top: 0;
-  padding-bottom: 0;
-  margin-top: 0;
-  margin-bottom: 0;
-  font-family: "Lato", sans-serif;
-  font-size: 15px;
-  grid-row: 4;
-  grid-column: 2;
-  z-index: 60;
+.action {
+  display: flex;
+  align-items: center;
 }
 
-.category {
-  padding-top: 0;
-  padding-bottom: 0;
-  margin-top: 0;
-  margin-bottom: 0;
-  font-family: "Lato", sans-serif;
-  font-size: 15px;
-  grid-row: 5;
-  grid-column: 2;
-  z-index: 60;
+.avatar {
+  font-family: var(--body-font);
+  font-size: 1.75em;
+  height: 60px;
+  width: 60px;
 }
 
-.type {
-  padding-top: 0;
-  padding-bottom: 0;
-  margin-top: 0;
-  margin-bottom: 0;
-  font-family: "Lato", sans-serif;
-  font-size: 15px;
-  grid-row: 6;
-  grid-column: 2;
-  z-index: 60;
-}
-
-.price {
-  padding-top: 0;
-  padding-bottom: 0;
-  margin-top: 0;
-  margin-bottom: 0;
-  font-family: "Lato", sans-serif;
-  font-size: 15px;
-  grid-row: 7;
-  grid-column: 2;
-  z-index: 60;
-}
-
-.image {
-  border-radius: 20px;
-  width: 90%;
-  margin-left: 5%;
-  margin-right: 5%;
-  grid-column-start: 1;
-  grid-column-end: 40;
-  grid-row-start: 2;
-}
-
-.name {
-  font-family: "BakBak One", cursive;
-  font-size: 72px;
-  color: #1F3770;
-  grid-column-start: 2;
-  grid-column-end: 10;
-  grid-row-start: 2;
-  z-index: 60;
-}
-
-.description {
-  font-family: "Lato", sans-serif;
-  font-size: 18px;
-  color: #1F3770;
-  grid-column-start: 20;
-  grid-row-start: 4;
-  z-index: 60;
-}
-
-.container {
-  color: #1F3770;
-  font-size: 20px;
-  display: grid;
-  grid-template-columns: 5%;
-  grid-template-rows: 1%;
-}
-
-.modal {
-  background-color: #FAFAFF;
-  border: 1px solid 1F3770;
-  border-radius: 45px;
-  box-shadow: 10px 5px 10px 5px rgba(0, 0, 0, 0.2);
-  height: 90%;
-  left: 50%;
-  position: fixed;
-  top: 50%;
-  transform: translate(-50%, -50%);
+.column {
+  display: flex;
+  flex-direction: column;
+  height: 125px;
+  justify-content: space-between;
+  padding: 20px;
   width: 50%;
-  z-index: 50;
+}
+
+.header {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+}
+
+.media {
+  height: 300px;
 }
 
 .modalBackdrop {
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
+  align-items: center;
   background-color: rgba(0, 0, 0, 0.8);
+  bottom: 0;
   display: flex;
   justify-content: center;
-  align-items: center;
+  left: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
   z-index: 2;
+}
+
+.root {
+  -moz-box-shadow: 3px 3px 5px 0px rgba(0, 0, 0, 0.4);
+  -webkit-box-shadow: 3px 3px 5px 0px rgba(0, 0, 0, 0.4);
+  border-radius: 0px;
+  box-shadow: 3px 3px 5px 0px rgba(0, 0, 0, 0.4);
+  font-family: var(--body-font);
+  text-align: left;
+  width: 550px;
+}
+
+.row {
+  display: flex;
+}
+
+.title {
+  font-family: var(--body-font);
+  font-weight: 700;
+}
+
+.typography,
+.subtitle {
+  color: var(--jet-black-color);
+  display: flex;
+  font-family: var(--body-font);
+  font-size: 17px;
+  margin-top: 0px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 100%;
+}
+
+.subtitle {
+  font-weight: 700;
 }

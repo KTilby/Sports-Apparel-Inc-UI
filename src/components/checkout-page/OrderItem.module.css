@@ -1,5 +1,5 @@
 p {
-  color: #666666;
+  color: var(--cadet-grey-color);
 }
 
 .orderItem {
@@ -17,4 +17,19 @@ p {
 .price {
   align-self: end;
   justify-self: end;
+}
+
+.typography,
+.subtitle {
+    color: var(--jet-black-color);
+    display: flex;
+    font-family: var(--body-font);
+    margin-top: 0px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 100%;
+}
+
+.subtitle {
+    font-weight: 700;
 }

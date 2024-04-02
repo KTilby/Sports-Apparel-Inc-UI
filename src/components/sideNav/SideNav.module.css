@@ -1,0 +1,22 @@
+.SideNav {
+  padding: 20px 30px 0 0;
+  min-width: 130px;
+  float: left;
+  transition: 0.5s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.arrow {
+  width: 15px;
+  height: 15px;
+  margin-left: -5px;
+}
+
+.header {
+    margin-bottom: 0;
+}
+
+.list {
+    padding: 20px;
+}

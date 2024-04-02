@@ -1,3 +1,7 @@
+.content {
+  color: var(--cadet-blue-color);
+}
+
 .footer {
   align-items: center;
   background-color: var(--ghost-white-color);
@@ -6,18 +10,14 @@
   font-family: var(--body-font);
   height: 100px;
   justify-content: center;
-  width: 100%;
   margin-top: 40px;
-  /* position: fixed;
-  bottom: 0; */
+  bottom: 0;
+  width: 100%;
+  align-self: flex-end;
 }
 
 .footerBox {
-  width: 95%;
   display: flex;
   justify-content: flex-end;
-}
-
-.content {
-  color: var(--cadet-blue-color);
+  width: 95%;
 }

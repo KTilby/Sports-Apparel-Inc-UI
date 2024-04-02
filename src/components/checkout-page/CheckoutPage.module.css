@@ -10,10 +10,30 @@
   margin: 2em 0;
 }
 
+.checkoutContainer2 {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  grid-template-areas:
+    "order    subtotal"
+    "order    delivery"
+    "order    summary";
+  gap: 1em 1.5em;
+  padding: 0 2em;
+  margin: 2em 0;
+  min-height: calc(100vh - 2em);
+}
+
 .delivery {
   grid-area: delivery;
 }
 
+.subtotal {
+  grid-area: subtotal;
+}
+
+.price {
+  padding: 1em;
+}
 .order {
   grid-area: order;
 }
@@ -25,17 +45,6 @@
 .payNow {
   grid-area: payNow;
   display:grid;
-}
-
-.payButton {
-  background: #666666;
-  border-radius: 20px;
-  color: #EEEEEE;
-  cursor: pointer;
-  font-weight: 600px;
-  height: 3em;
-  justify-self: center;
-  width: 75%;
 }
 
 .step {
@@ -51,7 +60,8 @@
 
 .title {
   text-transform: uppercase;
-  color: #666666;
+  color: var(--jet-black-color);
+  font-family: var(--body-font);
   margin: 0 0 1em 0;
 }
 
@@ -63,4 +73,20 @@
 .sameAddressText {
   color: #666666;
   font-weight: 700;
+}
+
+/*---------------------
+  Empty Cart Page 
+-----------------------*/
+.emptyCartContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  min-height: calc(100vh - 140px);
+  position: relative;
+}
+
+.emptyCartMessage {
+  text-align: center;
+  padding: 20px;
 }
