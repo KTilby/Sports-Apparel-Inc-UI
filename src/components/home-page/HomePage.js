@@ -3,9 +3,10 @@ import styles from './HomePage.module.css';
 import Slideshow from '../slideshow/Slideshow';
 import ProductCard from '../product-card/ProductCard';
 import Constants from '../../utils/constants';
-import fetchProducts from '../product-page/ProductPageService';
+import { fetchProducts } from '../product-page/ProductPageService';
 import DisplayedProducts from '../displayed-products/DisplayedProducts';
 import Modal from '../modal/Modal';
+import PopularProductCard from '../popular-product-card/PopularProductCard';
 
 const HomePage = () => {
   const [products, setProducts] = useState([]);
@@ -26,44 +27,39 @@ const HomePage = () => {
     fetchProducts(setProducts, setApiError);
   }, []);
 
-  // uses Product Card for product list for now, can be updated to display different cards
   return (
-    <div className={styles.page}>
-      <div className={styles.container}>
-        {apiError && (
+    <div className={styles.container}>
+      {apiError && (
         <p className={styles.errMsg} data-testid="errMsg">
           {Constants.API_ERROR}
         </p>
-        )}
-        {isOpen && <Modal onClick={closeModal} isOpen={isOpen} product={currentProduct} />}
-        <Slideshow />
-        <div className={styles.flexContainer}>
-          <DisplayedProducts apiError={apiError} header="New Products">
-            {products.slice(products.length - 6, products.length - 1).map((product) => (
-              <div key={product.id}>
-                <ProductCard
-                  product={product}
-                  setOpen={openModal}
-                  setCurrentProd={setCurrentProd}
-                />
-              </div>
-            ))}
-          </DisplayedProducts>
-        </div>
-        <div className={styles.flexContainer}>
-          <DisplayedProducts apiError={apiError} header="Popular Products">
-            {products.slice(products.length - 5, products.length - 1).map((product) => (
-              <div key={product.id}>
-                <ProductCard
-                  product={product}
-                  setOpen={openModal}
-                  setCurrentProd={setCurrentProd}
-                />
-              </div>
-            ))}
-          </DisplayedProducts>
-        </div>
-      </div>
+      )}
+      {isOpen && <Modal onClick={closeModal} isOpen={isOpen} product={currentProduct} />}
+      <Slideshow />
+      <DisplayedProducts apiError={apiError} header="New Products">
+        {products
+          .slice(products.length - 6, products.length - 1)
+          .map((product) => (
+            <ProductCard
+              key={product.id}
+              product={product}
+              setOpen={openModal}
+              setCurrentProd={setCurrentProd}
+            />
+          ))}
+      </DisplayedProducts>
+      <DisplayedProducts apiError={apiError} header="Popular Products">
+        {products
+          .slice(products.length - 5, products.length - 1)
+          .map((product) => (
+            <PopularProductCard
+              key={product.id}
+              product={product}
+              setOpen={openModal}
+              setCurrentProd={setCurrentProd}
+            />
+          ))}
+      </DisplayedProducts>
     </div>
   );
 };

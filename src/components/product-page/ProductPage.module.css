@@ -1,13 +1,80 @@
-.app {
-  display: grid;
-  grid-gap: 15px;
-  grid-template-columns: repeat(5, auto);
-  justify-content: space-evenly;
-  margin: 20px;
-}
-
 .errMsg {
   color: red;
   font-size: 14px;
   margin: 0px 2px 4px 4px;
+}
+
+/*---------------------
+  Product Detail Page
+-----------------------*/
+.action {
+  display: flex;
+  align-items: center;
+}
+
+.avatar {
+  font-family: var(--body-font);
+  font-size: 1.75em;
+  height: 60px;
+  width: 60px;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 70vh;
+  width: 45%;
+}
+
+.header {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+  padding-left: 0px;
+}
+
+.media {
+  padding-left: 20px;
+  margin-right: 20px;
+  display: flex;
+  flex-direction: column;
+  height: 70vh;
+  width: 45%;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: center;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  margin: auto;
+}
+
+.row {
+  display: flex;
+}
+
+.title {
+  font-family: var(--body-font);
+  font-weight: 700;
+}
+
+.typography,
+.subtitle {
+  color: var(--jet-black-color);
+  display: flex;
+  font-family: var(--body-font);
+  font-size: 17px;
+  margin-top: 0px;
+}
+
+.subtitle {
+  font-weight: 700;
 }

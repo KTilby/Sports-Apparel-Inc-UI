@@ -11,10 +11,11 @@ export const toPrice = (price) => `$${price.toFixed(2)}`;
  * @returns Number
  */
 export const getSubtotal = (products) => {
-  if (products.length) {
+  if (products.length > 0) {
     return toPrice(products.reduce(
       (acc, item) => acc + (item.quantity * item.price), 0
     ));
   }
-  throw new Error('No products found');
+  // throw new Error('No products found');
+  return toPrice(0);
 };

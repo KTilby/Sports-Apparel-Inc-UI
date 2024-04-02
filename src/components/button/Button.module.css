@@ -1,29 +1,94 @@
 .button {
-  width: 35px;
-  height: 35px;
-  border-radius: 50%;
-  grid-column: 38;
-  grid-row: 1;
-  color: #1F3770;
   background-color: #FAFAFF;
   border: 3px solid #1F3770;
-  z-index: 75;
+  border-radius: 50%;
+  color: #1F3770;
+  grid-column: 38;
+  grid-row: 1;
+  height: 35px;
   margin-top: 10px;
+  width: 35px;
+  z-index: 75;
 }
 
 .buttonUnstyled {
+  align-items: center;
   background: none;
   border: none;
   cursor: pointer;
   display: flex;
-  align-items: center;
+}
+
+.checkOutButton {
+  background: var(--flame-orange-color);
+  border: none;
+  border-radius: 10px;
+  color: var(--ghost-white-color);
+  cursor: pointer;
+  font-family: var(--body-font);
+  font-weight: 600px;
+  margin-top: 2em;
+  margin-left: 40px;
+  padding: 0.5rem 3rem;
+  width: 75%;
+}
+
+.payButton {
+  background: #666666;
+  border-radius: 20px;
+  color: #EEEEEE;
+  cursor: pointer;
+  font-weight: 600px;
+  height: 3em;
+  justify-self: center;
+  width: 75%;
+}
+
+.sideNavButton {
+  padding-top: 5px;
+  text-wrap: nowrap;
+  font-size: 15px;
+  color: #1F3770;
+  border: none;
+  background-color: #FAFAFF;
+}
+
+.sideNavButton:hover {
+  cursor: pointer;
+}
+
+.sideNavSubmitButton {
+  margin-top: 10px;
+  color: #FAFAFF;
+  background-color: #85919D;
+  font-weight: bold;
+  font-size: 16px;
+  margin-left: 20px;
+  width: 70px;
+  height: 25px;
+  border: none;
+  border-radius: 3px;
+  box-shadow: 6px 6px 5px lightgray;
+}
+
+.sideNavSubmitButton:hover {
+  cursor: pointer;
+  color: #1F3770;
+  border: solid #1F3770 2px;
 }
 
 .viewButton {
+  background: var(--cadet-gray-color);
   border: none;
-  font-family: var(--body-font);
-  font-weight: 600;
-  width: 100px;
+  border-radius: 3px;
+  color: var(--ghost-white-color);
   cursor: pointer;
+  font-family: var(--body-font);
+  font-weight: 500;
   padding: 5px;
+  width: 75px;
+}
+
+.viewButton:hover {
+  opacity: 75%;
 }

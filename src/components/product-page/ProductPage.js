@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import ProductCard from '../product-card/ProductCard';
 import styles from './ProductPage.module.css';
 import Constants from '../../utils/constants';
-import fetchProducts from './ProductPageService';
+import { fetchProducts } from './ProductPageService';
 import Modal from '../modal/Modal';
 
 /**
@@ -32,7 +32,7 @@ const ProductPage = () => {
     <div>
       {apiError && <p className={styles.errMsg} data-testid="errMsg">{Constants.API_ERROR}</p>}
       {isOpen && <Modal onClick={closeModal} isOpen={isOpen} product={currentProduct} />}
-      <div className={styles.app}>
+      <div className={styles.container}>
         {products.map((product) => (
           <div key={product.id}>
             <ProductCard product={product} setOpen={openModal} setCurrentProd={setCurrentProd} />

@@ -1,0 +1,60 @@
+.buttonActions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 20px;
+    padding: 10px;
+}
+
+.avatar {
+    font-family: var(--body-font);
+    height: 50px;
+    width: 50px;
+}
+
+.cardContent {
+    align-items: space-between;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+
+.header {
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+}
+
+.media {
+    height: 150px;
+}
+
+.root {
+    -moz-box-shadow: 3px 3px 5px 0px rgba(0, 0, 0, 0.4);
+    -webkit-box-shadow: 3px 3px 5px 0px rgba(0, 0, 0, 0.4);
+    border-radius: 0px;
+    box-shadow: 3px 3px 5px 0px rgba(0, 0, 0, 0.4);
+    font-family: var(--body-font);
+    text-align: left;
+    width: 325px;
+
+}
+
+.title {
+    font-family: var(--body-font);
+    font-weight: 700;
+}
+
+.typography,
+.subtitle {
+    color: var(--jet-black-color);
+    display: flex;
+    font-family: var(--body-font);
+    margin-top: 0px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 100%;
+}
+
+.subtitle {
+    font-weight: 700;
+}

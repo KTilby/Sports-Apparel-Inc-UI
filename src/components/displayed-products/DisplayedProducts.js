@@ -7,8 +7,10 @@ import Constants from '../../utils/constants';
  * @description provides styling for a title and header
  * @returns component
  */
-const DisplayedProducts = ({ children, apiError, header }) => (
-  <div className={styles.displayedProducts}>
+const DisplayedProducts = ({
+  children, apiError, header, noBackground
+}) => (
+  <div className={noBackground ? styles.noBackground : styles.displayedProducts}>
     {apiError && (
     <p className={styles.errMsg} data-testid="errMsg">
       {Constants.API_ERROR}
