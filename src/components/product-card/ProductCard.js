@@ -9,10 +9,12 @@ import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import ShareIcon from '@material-ui/icons/Share';
 import styles from './productCard.module.css';
 import { useCart } from '../checkout-page/CartContext';
+import { useWishList } from '../wishlist-page/WishListContext';
 import Button from '../button/Button';
 import getImage from '../../utils/productImageControl';
 import cartService from '../checkout-page/CartService';
 import { getDemographicColor, getFirstCharacter } from '../../utils/common';
+import wishListService from '../wishlist-page/WishListService';
 
 /**
  * @name ProductCard
@@ -22,6 +24,10 @@ import { getDemographicColor, getFirstCharacter } from '../../utils/common';
  */
 const ProductCard = ({ product, setOpen, setCurrentProd }) => {
   const { dispatch, state } = useCart();
+  const { wishDispatch, wishState } = useWishList();
+
+  const user = JSON.parse(sessionStorage.getItem('user'));
+  const isCustomerLoggedIn = user && user.role === 'Customer';
 
   const openModal = () => {
     setOpen();
@@ -30,6 +36,10 @@ const ProductCard = ({ product, setOpen, setCurrentProd }) => {
 
   const handleAddToCart = () => {
     cartService.addToCart(product, dispatch, state);
+  };
+
+  const handleAddToWishList = () => {
+    wishListService.addToWishList(product, wishDispatch, wishState);
   };
 
   return (
@@ -56,7 +66,7 @@ const ProductCard = ({ product, setOpen, setCurrentProd }) => {
         />
         <CardMedia
           className={styles.media}
-          image={getImage(product.category)}
+          image={getImage(product.category, product.pets)}
           title={product.category}
         />
         <CardContent className={styles.cardContent}>
@@ -77,9 +87,12 @@ const ProductCard = ({ product, setOpen, setCurrentProd }) => {
         </CardContent>
       </Link>
       <CardActions className={styles.buttonActions} disableSpacing>
-        <Button className="buttonUnstyled" aria-label="add to favorites">
+        {isCustomerLoggedIn
+        && (
+        <Button className="buttonUnstyled" aria-label="add to favorites" onClick={handleAddToWishList}>
           <FavoriteIcon style={{ color: 'var(--flame-orange-color)', width: '30px', height: '30px' }} />
         </Button>
+        )}
         <Button className="buttonUnstyled" aria-label="share">
           <ShareIcon style={{ color: 'var(--flame-orange-color)', width: '30px', height: '30px' }} />
         </Button>

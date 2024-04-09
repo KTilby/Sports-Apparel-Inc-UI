@@ -1,33 +1,41 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import {
-  Avatar, Card, CardHeader, CardMedia, CardContent, CardActions,
-  Typography
+  Card, CardHeader, CardMedia, CardContent, CardActions,
+  Avatar, Typography
 } from '@material-ui/core';
-import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
-import styles from './popularProductCard.module.css';
+import { AddShoppingCart, Delete, Share } from '@material-ui/icons';
+import styles from './WishListCard.module.css';
 import { useCart } from '../checkout-page/CartContext';
 import Button from '../button/Button';
 import getImage from '../../utils/productImageControl';
 import cartService from '../checkout-page/CartService';
 import { getDemographicColor, getFirstCharacter } from '../../utils/common';
+import wishListService from './WishListService';
+import { useWishList } from './WishListContext';
 
 /**
- * @name ProductCard
+ * @name WishListCard
  * @description displays single product card component
  * @param {*} props product
  * @return component
  */
-const PopularProductCard = ({ product, setOpen, setCurrentProd }) => {
+const WishListCard = ({ product, setOpen, setCurrentProd }) => {
   const { dispatch, state } = useCart();
+  const { wishDispatch, wishState } = useWishList();
+
+  const openModal = () => {
+    setOpen();
+    setCurrentProd(product);
+  };
 
   const handleAddToCart = () => {
     cartService.addToCart(product, dispatch, state);
   };
 
-  const openModal = () => {
-    setOpen();
-    setCurrentProd(product);
+  const handleDeleteFromWishlist = () => {
+    console.log('handle delete from wish');
+    wishListService.deleteFromWishList(product, wishDispatch, wishState);
   };
 
   return (
@@ -75,8 +83,14 @@ const PopularProductCard = ({ product, setOpen, setCurrentProd }) => {
         </CardContent>
       </Link>
       <CardActions className={styles.buttonActions} disableSpacing>
+        <Button className="buttonUnstyled" aria-label="share">
+          <Share style={{ color: 'var(--flame-orange-color)', width: '30px', height: '30px' }} />
+        </Button>
         <Button className="buttonUnstyled" aria-label="add to shopping cart" onClick={handleAddToCart}>
-          <AddShoppingCartIcon style={{ color: 'var(--flame-orange-color)', width: '30px', height: '30px' }} />
+          <AddShoppingCart style={{ color: 'var(--flame-orange-color)', width: '30px', height: '30px' }} />
+        </Button>
+        <Button className="buttonUnstyled" aria-label="Delete" onClick={handleDeleteFromWishlist}>
+          <Delete style={{ color: 'var(--flame-orange-color)' }} />
         </Button>
         <Button className="viewButton" onClick={openModal} aria-label="view product details">
           View
@@ -86,4 +100,4 @@ const PopularProductCard = ({ product, setOpen, setCurrentProd }) => {
   );
 };
 
-export default PopularProductCard;
+export default WishListCard;

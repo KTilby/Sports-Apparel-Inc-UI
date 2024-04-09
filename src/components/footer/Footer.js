@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { NavLink } from 'react-router-dom';
+import logo from '../../assets/images/inline_logo.svg';
 import style from './Footer.module.css';
 
 const Footer = () => {
@@ -20,6 +22,60 @@ const Footer = () => {
   return (
     <div className={style.footer}>
       <div className={style.footerBox}>
+        <div className={style.imageContainer}>
+          <NavLink to="/">
+            <img
+              src={logo}
+              alt="Sports Apparel Inc Logo"
+              width={250}
+              aria-label="Home"
+            />
+          </NavLink>
+        </div>
+        <div className={style.navGroup}>
+          <ul className={style.navList}>
+            <li>
+              <NavLink
+                activeClassName={style.active}
+                className={style.navItem}
+                to="/men"
+                aria-label="View Page for Men"
+              >
+                Men
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                activeClassName={style.active}
+                className={style.navItem}
+                to="/women"
+                aria-label="View Page for Women"
+              >
+                Women
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                activeClassName={style.active}
+                className={style.navItem}
+                to="/kids"
+                aria-label="View Page for Kids"
+              >
+                Kids
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                activeClassName={style.active}
+                className={style.navItem}
+                to="/pets"
+                aria-label="View Page for Pets"
+              >
+                Pets
+              </NavLink>
+            </li>
+          </ul>
+        </div>
         <p className={style.content}>
           &copy;
           {' '}

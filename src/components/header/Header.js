@@ -1,74 +1,46 @@
 import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import GoogleLogin, { GoogleLogout } from 'react-google-login';
 import Badge from '@material-ui/core/Badge';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
-import loginUser from './HeaderService';
-import constants from '../../utils/constants';
 import logo from '../../assets/images/inline_logo.svg';
 import styles from './Header.module.css';
 import SearchBox from '../search/SearchBox';
 import { useCart } from '../checkout-page/CartContext';
+import Button from '../button/Button';
+import UserMenu from '../user-menu/UserMenu';
+import HttpHelper from '../../utils/HttpHelper';
 
 /**
  * @name Header
  * @description Displays the navigation header
  * @return component
  */
-const Header = () => {
-  const [user, setUser] = useState('');
-  const [googleError, setGoogleError] = useState('');
-  const [apiError, setApiError] = useState(false);
-
+const Header = ({ handleOpen, user, setUser }) => {
   // get state of item count from the useCart hook to update whenever itemCount changes
   const { state } = useCart();
   const [itemCount, setItemCount] = useState(state.itemCount);
-
-  /**
-   * @name handleGoogleLoginSuccess
-   * @description Function to run if google login was successful
-   * @param {Object} response Response object from google
-   */
-  const handleGoogleLoginSuccess = (response) => {
-    sessionStorage.setItem('token', response.getAuthResponse().id_token);
-    const googleUser = {
-      email: response.profileObj.email,
-      firstName: response.profileObj.givenName,
-      lastName: response.profileObj.familyName
-    };
-    loginUser(googleUser, setUser, setApiError);
-    setGoogleError('');
-  };
-
-  /**
-   * @name handleGoogleLoginSuccess
-   * @description Function to run if google login was unsuccessful
-   */
-  const handleGoogleLoginFailure = () => {
-    setGoogleError('There was a problem logging in with Google. Please wait and try again later.');
-  };
-
-  /**
-   * @name handleGoogleLogoutSuccess
-   * @description Function to run if google logout was successful
-   */
-  const handleGoogleLogoutSuccess = () => {
-    setUser('');
-    setGoogleError('');
-  };
-
-  /**
-   * @name handleGoogleLogoutFailure
-   * @description Function to run if google logout was unsuccessful
-   */
-  const handleGoogleLogoutFailure = () => {
-    setGoogleError('There was a problem logging out with Google. Please wait and try again later.');
-  };
 
   // synchronize itemCount with the cart's item count
   useEffect(() => {
     setItemCount(state.itemCount);
   }, [state.itemCount]);
+
+  const handleLogout = () => {
+    const loggedInUser = JSON.parse(sessionStorage.getItem('user'));
+    const products = JSON.parse(sessionStorage.getItem('cart'));
+    console.log(loggedInUser);
+    console.log(products);
+    console.log(itemCount);
+    const route = `/users/customers/${loggedInUser.id}`;
+    const payload = { ...loggedInUser, savedCart: [products, Number(itemCount)] };
+    HttpHelper(route, 'PUT', payload)
+      .then((response) => (response.json()))
+      .then((data) => (console.log(data)))
+      .catch((error) => (console.log(error)));
+    window.location.reload();
+    sessionStorage.clear();
+    setUser(null);
+  };
 
   return (
     <div className={styles.headerContainer}>
@@ -115,6 +87,16 @@ const Header = () => {
                 Kids
               </NavLink>
             </li>
+            <li>
+              <NavLink
+                activeClassName={styles.active}
+                className={styles.navItem}
+                to="/pets"
+                aria-label="View Page for Pets"
+              >
+                Pets
+              </NavLink>
+            </li>
           </ul>
           <ul className={styles.navList}>
             <li>
@@ -140,26 +122,9 @@ const Header = () => {
               <SearchBox />
             </li>
             <li>
-              {user && <span>{user.firstName}</span>}
-              {user && <span>{user.lastName}</span>}
-              {googleError && <span>{googleError}</span>}
-              {apiError && <span>Api Error</span>}
-              {!user ? (
-                <GoogleLogin
-                  clientId={constants.GOOGLE_CLIENT_ID}
-                  buttonText="Login"
-                  onSuccess={handleGoogleLoginSuccess}
-                  onFailure={handleGoogleLoginFailure}
-                  cookiePolicy="single_host_origin"
-                />
-              ) : (
-                <GoogleLogout
-                  clientId={constants.GOOGLE_CLIENT_ID}
-                  buttonText="Logout"
-                  onLogoutSuccess={handleGoogleLogoutSuccess}
-                  onFailure={handleGoogleLogoutFailure}
-                />
-              )}
+              {user
+                ? <UserMenu handleLogout={handleLogout} user={user} />
+                : <Button className="loginButton" onClick={handleOpen}>Login</Button>}
             </li>
           </ul>
         </div>

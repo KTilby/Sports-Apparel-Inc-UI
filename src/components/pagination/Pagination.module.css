@@ -1,0 +1,61 @@
+.activeArrowButton {
+  background-color: var(--flame-orange-color);
+  color: #fff;
+}
+
+.arrowButton {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1px solid #ccc;
+  background-color: transparent;
+  color: #333;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+.arrowButton:hover {
+    background-color: var(--flame-orange-color);
+  }
+
+.leftSeparator {
+  margin-left: 10px;
+  color: #949494;
+}
+
+.pagination {
+  margin-top: 20px;
+  display: flex;
+  justify-content: right;
+  list-style: none;
+  padding: 0;
+}
+
+.pageItem {
+  margin: 0 5px;
+}
+
+.pageButton {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1px solid #ccc;
+  background-color: transparent;
+  color: #333;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.pageButton.active {
+  background-color: var(--flame-orange-color);
+  color: #fff;
+}
+
+.pageButton:focus {
+  outline: none;
+}
+
+.separator {
+  margin-left: 10px;
+  margin-right: 10px;
+  color: #949494;
+}

@@ -8,8 +8,15 @@ import Running from '../assets/images/product-images/Running.jpg';
 import Skateboarding from '../assets/images/product-images/Skateboarding.jpg';
 import Soccer from '../assets/images/product-images/Soccer.jpg';
 import Weightlifting from '../assets/images/product-images/Weightlifting.jpg';
+// Pets Images
+import Swimming from '../assets/images/product-images/pets/Swimming.png';
+import OutdoorAdventure from '../assets/images/product-images/pets/OutdoorAdventure.jpg';
+import SpringPole from '../assets/images/product-images/pets/SpringPole.jpg';
+import PlayGyms from '../assets/images/product-images/pets/PlayGyms.png';
+import CarRides from '../assets/images/product-images/pets/CarRides.png';
+import { PLACEHOLDER_IMAGE } from './constants';
 
-const productImageControl = (category) => {
+const productImageControl = (category, isPets) => {
   const images = [
     Baseball,
     Basketball,
@@ -22,29 +29,46 @@ const productImageControl = (category) => {
     Soccer,
     Weightlifting];
 
-  switch (category) {
-    case 'Baseball':
-      return images[0];
-    case 'Basketball':
-      return images[1];
-    case 'Boxing':
-      return images[2];
-    case 'Football':
-      return images[3];
-    case 'Golf':
-      return images[4];
-    case 'Hockey':
-      return images[5];
-    case 'Running':
-      return images[6];
-    case 'Skateboarding':
-      return images[7];
-    case 'Soccer':
-      return images[8];
-    case 'Weightlifting':
-      return images[9];
-    default:
-      return null;
+  if (isPets) {
+    switch (category) {
+      case 'Spring Pole':
+        return SpringPole;
+      case 'Car Rides':
+        return CarRides;
+      case 'Play Gyms':
+        return PlayGyms;
+      case 'Swimming':
+        return Swimming;
+      case 'Outdoor Adventure':
+        return OutdoorAdventure;
+      default:
+        return PLACEHOLDER_IMAGE;
+    }
+  } else {
+    switch (category) {
+      case 'Baseball':
+        return images[0];
+      case 'Basketball':
+        return images[1];
+      case 'Boxing':
+        return images[2];
+      case 'Football':
+        return images[3];
+      case 'Golf':
+        return images[4];
+      case 'Hockey':
+        return images[5];
+      case 'Running':
+        return images[6];
+      case 'Skateboarding':
+        return images[7];
+      case 'Soccer':
+        return images[8];
+      case 'Weightlifting':
+        return images[9];
+      default:
+        return PLACEHOLDER_IMAGE;
+    }
   }
 };
 
