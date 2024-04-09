@@ -1,7 +1,8 @@
+import React from 'react';
+import { Link } from 'react-router-dom';
 import { Fade } from 'react-slideshow-image';
 import { Typography } from '@material-ui/core';
 import { ArrowBack, ArrowForward } from '@material-ui/icons';
-import React from 'react';
 import Running from '../../assets/images/product-images/Running.jpg';
 import Hockey from '../../assets/images/product-images/Hockey.jpg';
 import Baseball from '../../assets/images/product-images/Baseball.jpg';
@@ -35,28 +36,46 @@ const Slideshow = () => {
     <div className={styles.container}>
       <Fade duration={5000} prevArrow={properties.prevArrow} nextArrow={properties.nextArrow}>
         <div className={styles.imageContainer}>
-          <Typography className={styles.typography}>
-            Running Shoes
-            <br />
-            15% Off
-          </Typography>
-          <img className={styles.running} alt="Running" src={Running} />
+          <Link to={{
+            pathname: '/search-results',
+            state: { searchTerm: 'Running Shoes' }
+          }}
+          >
+            <Typography className={styles.typography}>
+              Running Shoes
+              <br />
+              15% Off
+            </Typography>
+            <img className={styles.running} alt="Running" src={Running} />
+          </Link>
         </div>
         <div className={styles.imageContainer}>
-          <Typography className={styles.typography}>
-            Hockey Gear
-            <br />
-            20% Off
-          </Typography>
-          <img className={styles.image} alt="Hockey" src={Hockey} />
+          <Link to={{
+            pathname: '/search-results',
+            state: { searchTerm: 'Hockey' }
+          }}
+          >
+            <Typography className={styles.typography}>
+              Hockey Gear
+              <br />
+              20% Off
+            </Typography>
+            <img className={styles.image} alt="Hockey" src={Hockey} />
+          </Link>
         </div>
         <div className={styles.imageContainer}>
-          <Typography className={styles.typography}>
-            Baseball Gear
-            <br />
-            20% Off
-          </Typography>
-          <img className={styles.image} alt="Baseball" src={Baseball} />
+          <Link to={{
+            pathname: '/search-results',
+            state: { searchTerm: 'Baseball' }
+          }}
+          >
+            <Typography className={styles.typography}>
+              Baseball Gear
+              <br />
+              20% Off
+            </Typography>
+            <img className={styles.image} alt="Baseball" src={Baseball} />
+          </Link>
         </div>
       </Fade>
     </div>

@@ -10,6 +10,12 @@
   width: 60px;
 }
 
+.buttonActions {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 20px;
+}
+
 .column {
   display: flex;
   flex-direction: column;

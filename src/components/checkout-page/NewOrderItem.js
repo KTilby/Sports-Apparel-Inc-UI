@@ -9,6 +9,8 @@ import Button from '../button/Button';
 import cartService from './CartService';
 import { useCart } from './CartContext';
 import { getDemographicColor, getFirstCharacter } from '../../utils/common';
+import { useWishList } from '../wishlist-page/WishListContext';
+import wishListService from '../wishlist-page/WishListService';
 
 /**
  * @name OrderItem
@@ -20,6 +22,13 @@ const OrderItem = ({ product }) => {
 
   const handleDeleteFromCart = () => {
     cartService.deleteFromCart(product, dispatch, state);
+  };
+
+  const { wishDispatch, wishState } = useWishList();
+  const user = JSON.parse(sessionStorage.getItem('user'));
+  const isCustomerLoggedIn = user && user.role === 'Customer';
+  const handleAddToWishList = () => {
+    wishListService.addToWishList(product, wishDispatch, wishState);
   };
 
   return (
@@ -48,7 +57,7 @@ const OrderItem = ({ product }) => {
             />
             {/* Item Details */}
             <div style={{ marginLeft: 15 }}>
-              <Typography variant="h5">{product.title}</Typography>
+              <Typography variant="h5">{product.name}</Typography>
               <Typography className={styles.subtitle}>
                 {product.demographic}
                 {' '}
@@ -75,9 +84,12 @@ const OrderItem = ({ product }) => {
         <Button className="buttonUnstyled" aria-label="share with someone">
           <Share style={{ color: 'var(--flame-orange-color', width: '30px', height: '30px' }} />
         </Button>
-        <Button className="buttonUnstyled" aria-label="add to your wish list">
-          <PlaylistAdd style={{ color: 'var(--flame-orange-color', width: '30px', height: '30px' }} />
-        </Button>
+        {isCustomerLoggedIn
+        && (
+          <Button className="buttonUnstyled" aria-label="add to your wish list" onClick={handleAddToWishList}>
+            <PlaylistAdd style={{ color: 'var(--flame-orange-color', width: '30px', height: '30px' }} />
+          </Button>
+        )}
         <Button
           className="buttonUnstyled"
           aria-label="Delete"

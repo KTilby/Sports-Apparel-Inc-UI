@@ -31,14 +31,18 @@ a {
 :root {
   /* Color Palette for Sports Apparel Inc */
   --cadet-gray-color: #85919D;
-  --flame-orange-color: #DD6031;
   --font-bold: 600;
   --font-extra-bold: 900;
   --ghost-white-color: #FAFAFF;
   --jet-black-color: #272B2B;
+  --anti-flash-white-color: #E9EbED;
+  /* Accent Colors */
+  --flame-orange-color: #DD6031;
   --selective-yellow-color: #FFB60A;
   --yale-blue-color: #1F3770;
-  --anti-flash-white-color: #E9EbED;
+  --forest-green-color: #18933A;
+  --mulberry-color: #B9509F;
+
   
 
   /* Font Styles */

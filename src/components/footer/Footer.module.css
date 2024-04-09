@@ -1,5 +1,6 @@
 .content {
   color: var(--cadet-blue-color);
+  margin-left: auto;
 }
 
 .footer {
@@ -13,11 +14,83 @@
   margin-top: 40px;
   bottom: 0;
   width: 100%;
-  align-self: flex-end;
 }
 
 .footerBox {
   display: flex;
-  justify-content: flex-end;
   width: 95%;
+}
+
+.headerContainer {
+  background-color: var(--ghost-white-color);
+  box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.25);
+  font-family: var(--body-font);
+  font-size: 1.2em;
+  font-weight: var(--font-bold);
+  height: 100px;
+  width: 100%;
+}
+
+.navContainer {
+  align-items: center;
+  display: flex;
+  height: 100%;
+  justify-content: space-between;
+  margin: 0px auto;
+  width: 95%;
+}
+
+/*----------------------
+  Navigation Menu Items
+  -----------------------*/
+.navItem {
+  color: var(--yale-blue-color);
+  cursor: pointer;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.active {
+  border-bottom: 4px solid var(--flame-orange-color);
+  border-radius: 4px;
+  color: var(--flame-orange-color) !important;
+}
+
+.navGroup {
+  display: flex;
+  gap: 2.5em;
+  margin: auto;
+}
+
+.imageContainer {
+  padding-top: 15px;
+  margin-right: 10%;
+}
+
+.navList {
+  display: flex;
+  list-style: none;
+}
+
+.navList:last-of-type {
+  gap: 1.5em;
+}
+
+/* Responsive Styles */
+@media screen and (max-width: 768px) {
+  .navContainer {
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .navList {
+    column-gap: 1rem;
+    flex-direction: row;
+    justify-content: center;
+  }
+
+  .navItem {
+    font-size: 0.9rem;
+    margin: 0;
+  }
 }

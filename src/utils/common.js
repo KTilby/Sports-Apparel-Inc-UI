@@ -1,9 +1,17 @@
+/**
+ * @name getDemographicColor
+ * @description Take 1st char of Demographic and get the color for it
+ * @param {string} demographic The input string.
+ * @returns {style} Color code for the demographic
+ */
 export const getDemographicColor = (demographic) => {
   const demographicInitial = demographic?.charAt(0);
   const colors = {
     W: 'var(--flame-orange-color)',
     M: 'var(--yale-blue-color)',
-    default: 'var(--selective-yellow-color)'
+    K: 'var(--selective-yellow-color)',
+    P: 'var(--forest-green-color)',
+    default: 'var(--mulberry-color)'
   };
 
   return colors[demographicInitial] || colors.default;
@@ -17,3 +25,17 @@ export const getDemographicColor = (demographic) => {
  *                    or an empty string if the input is null or empty.
  */
 export const getFirstCharacter = (str) => (str ? str.charAt(0) : '');
+
+/**
+ * @name parseColorCodeAndName
+ * @description returns colorCode and colorName
+ * @param {*} colorCodeWithName string of colorCode & colorName delimited by |
+ * @returns {object} ColorHexCode and ColorName as an object
+ */
+export const parseColorCodeAndName = (colorCodeWithName) => {
+  if (!colorCodeWithName) {
+    return { colorCode: '', colorName: '' };
+  }
+  const [colorCode, colorName] = colorCodeWithName.split('|');
+  return { colorCode, colorName };
+};

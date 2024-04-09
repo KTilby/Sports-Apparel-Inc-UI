@@ -11,14 +11,15 @@ const cartService = {
         type: 'add',
         product: {
           id: product.id,
-          title: product.name,
+          name: product.name,
           price: product.price,
           category: product.category,
           description: product.description,
           demographic: product.demographic,
           type: product.type,
           quantity: 1,
-          image: getImage(product.category)
+          pets: product.pets,
+          image: getImage(product.category, product.pets)
         }
       });
     } else {
@@ -35,6 +36,13 @@ const cartService = {
       product: {
         id: product.id
       }
+    });
+  },
+  initializeCart: (products, itemCount, dispatch) => {
+    dispatch({
+      type: 'init',
+      products,
+      itemCount
     });
   }
 };

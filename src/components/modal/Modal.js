@@ -1,16 +1,24 @@
 import React, { useEffect, useRef } from 'react';
 import {
-  Card, Typography, CardMedia, CardHeader, Avatar
+  Card, CardActions, Typography, CardMedia, CardHeader, Avatar
 } from '@material-ui/core';
+import { AddShoppingCart } from '@material-ui/icons';
+import cartService from '../checkout-page/CartService';
 import styles from './Modal.module.css';
 import Button from '../button/Button';
 import getImage from '../../utils/productImageControl';
-import { getDemographicColor, getFirstCharacter } from '../../utils/common';
+import { getDemographicColor, getFirstCharacter, parseColorCodeAndName } from '../../utils/common';
+import { useCart } from '../checkout-page/CartContext';
 
 const Modal = ({ onClick, isOpen, product }) => {
+  const { dispatch, state } = useCart();
   const currentProduct = product;
   const modalRef = useRef();
-  const swatches = [product.primaryColorCode, product.secondaryColorCode];
+  const swatches = [product.primaryColorCodeWithName, product.secondaryColorCodeWithName];
+  const swatchesColorCodeAndName = swatches.map(parseColorCodeAndName);
+
+  const user = JSON.parse(sessionStorage.getItem('user'));
+  const isCustomerLoggedIn = user && user.role === 'Customer';
 
   useEffect(() => {
     const handler = (e) => {
@@ -23,6 +31,10 @@ const Modal = ({ onClick, isOpen, product }) => {
       document.removeEventListener('mousedown', handler);
     };
   });
+
+  const handleAddToCart = () => {
+    cartService.addToCart(currentProduct, dispatch, state);
+  };
 
   return (
     <div className={styles.modalBackdrop}>
@@ -45,8 +57,8 @@ const Modal = ({ onClick, isOpen, product }) => {
             </Avatar>
         )}
           action={(
-            <Button className="buttonUnstyled" onClick={onClick}>
-              <Typography style={{ fontSize: '1.75em' }}>X</Typography>
+            <Button className="closeButton" onClick={onClick}>
+              X
             </Button>
           )}
           title={product.name}
@@ -55,7 +67,7 @@ const Modal = ({ onClick, isOpen, product }) => {
 
         <CardMedia
           className={styles.media}
-          image={getImage(product.category)}
+          image={getImage(product.category, product.pets)}
           title={product.category}
         />
         <div className={styles.row}>
@@ -82,14 +94,15 @@ const Modal = ({ onClick, isOpen, product }) => {
                 Available In:
               </Typography>
               <div className={styles.row}>
-                {swatches.map((swatch) => (
+                {swatchesColorCodeAndName.map((swatch) => (
                   <div
+                    key={swatch.colorName}
                     style={
             {
               color: 'var(--jet-black-color)',
               background: 'var(--ghost-white-color)',
               borderRadius: '3px',
-              border: `1px solid ${swatch}`,
+              border: `1px solid ${swatch.colorCode}`,
               minWidth: '75px',
               display: 'flex',
               alignItems: 'center',
@@ -101,14 +114,21 @@ const Modal = ({ onClick, isOpen, product }) => {
             }
             }
                   >
-                    {swatch}
+                    {swatch.colorName}
                     <div style={{
-                      background: `${swatch}`, marginLeft: '10px', display: 'flex', width: '15px', height: '15px', borderRadius: '3px'
+                      background: `${swatch.colorCode}`, marginLeft: '10px', display: 'flex', width: '15px', height: '15px', borderRadius: '3px'
                     }}
                     />
                   </div>
                 ))}
               </div>
+              {isCustomerLoggedIn && (
+                <CardActions className={styles.buttonActions} disableSpacing>
+                  <Button className="buttonUnstyled" aria-label="add to shopping cart" onClick={handleAddToCart}>
+                    <AddShoppingCart style={{ color: 'var(--flame-orange-color)', width: '30px', height: '30px' }} />
+                  </Button>
+                </CardActions>
+              )}
             </div>
           </div>
         </div>

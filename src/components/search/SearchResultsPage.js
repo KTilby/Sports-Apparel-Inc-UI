@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import ProductCard from '../product-card/ProductCard';
 import DisplayedProducts from '../displayed-products/DisplayedProducts';
@@ -6,26 +6,41 @@ import PopularProductCard from '../popular-product-card/PopularProductCard';
 import styles from './Search.module.css';
 import Modal from '../modal/Modal';
 import SideNav from '../sideNav/SideNav';
-import { fetchProducts } from '../product-page/ProductPageService';
-import { SideNavProvider } from '../sideNav/SideNavContext';
+import { useLoader } from '../../contexts/LoaderContext';
+import Loader from '../loader/Loader';
+import { ProductContext } from '../../contexts/ProductContext';
+import Pagination from '../pagination/Pagination';
 
-const SearchResults = () => {
+const SearchResultsPage = () => {
   const location = useLocation();
   const history = useHistory();
-  const { searchResults, apiError, searchTerm } = location.state;
+  const { products, apiError, popularProducts } = useContext(ProductContext);
+  const { searchTerm } = location.state;
+  const [searchResults, setSearchResults] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
   const [currentProduct, setCurrentProd] = useState();
-  const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [selectedFilters, setSelectedFilters] = useState([]);
-  const [isLoading, setIsLoading] = useState(true); // Add loading state
+  const { loading } = useLoader();
+  const noResultsMessage = `Oh No! We couldn't find a match for "${searchTerm}"`;
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 20;
 
   useEffect(() => {
-    fetchProducts(setProducts)
-      .finally(() => setIsLoading(false)); // Set loading to false after fetching
-  }, []);
+    const lowerCaseTerm = searchTerm.toLowerCase();
+    const search = () => {
+      const searchMatches = [];
+      products.forEach((product) => {
+        const fullProduct = `${product.demographic} ${product.category} ${product.type} ${product.description} ${product.name} ${product.demographic} ${product.type} ${product.description}`;
+        if (fullProduct.toLowerCase().includes(lowerCaseTerm)) {
+          searchMatches.push(product);
+        }
+      });
+      setSearchResults(searchMatches);
+    };
 
-  const noResultsMessage = `Oh No! We couldn't find a match for "${searchTerm}"`;
+    search();
+  }, [products, searchTerm]);
 
   const openModal = () => {
     setIsOpen(true);
@@ -37,20 +52,18 @@ const SearchResults = () => {
 
   const applyFilters = (filters) => {
     setSelectedFilters(filters);
+    setCurrentPage(1);
   };
-
-  useEffect(() => {
-    fetchProducts(setProducts);
-  }, []);
 
   useEffect(() => {
     // Filter products based on selected filters
     if (selectedFilters.length === 0) {
-      // If no filters selected, display all products
+      // If no filters selected, display searched products
       setFilteredProducts(searchResults);
     } else {
       const filtered = searchResults.filter((product) => selectedFilters.includes(product.category)
-      || selectedFilters.includes(product.type));
+      || selectedFilters.includes(product.type)
+      || selectedFilters.includes(product.name));
       setFilteredProducts(filtered);
     }
   }, [selectedFilters, searchResults]);
@@ -64,10 +77,18 @@ const SearchResults = () => {
     };
   }, [history]);
 
+  // Calculate pagination
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = filteredProducts.slice(indexOfFirstItem, indexOfLastItem);
+
+  // Change page
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
   return (
     <div className={styles.searchResultPageContainer}>
-      {isLoading ? (
-        <div>Loading...</div>
+      {loading ? (
+        <Loader when={loading} />
       ) : (
         <>
           {apiError ? (
@@ -81,8 +102,7 @@ const SearchResults = () => {
                   <h2 className={styles.titleNoResults}>{noResultsMessage}</h2>
                   <hr className={styles.dividingLine} />
                   <DisplayedProducts apiError={apiError} header="Popular Products" noBackground>
-                    {products
-                      .slice(products.length - 5, products.length - 1)
+                    {popularProducts
                       .map((product) => (
                         <PopularProductCard
                           key={product.id}
@@ -95,9 +115,7 @@ const SearchResults = () => {
                 </div>
               ) : (
                 <>
-                  <SideNavProvider>
-                    <SideNav submitHandler={applyFilters} />
-                  </SideNavProvider>
+                  <SideNav submitHandler={applyFilters} />
                   <h1 className={styles.title}>Search Results</h1>
                   <div className={styles.productGrid}>
                     {isOpen && (
@@ -107,7 +125,7 @@ const SearchResults = () => {
                       product={currentProduct}
                     />
                     )}
-                    {filteredProducts.map((result) => (
+                    {currentItems.map((result) => (
                       <div key={result.id} className={styles.productCard}>
                         <ProductCard
                           product={result}
@@ -117,6 +135,12 @@ const SearchResults = () => {
                       </div>
                     ))}
                   </div>
+                  <Pagination
+                    itemsPerPage={itemsPerPage}
+                    totalItems={filteredProducts.length}
+                    currentPage={currentPage}
+                    paginate={paginate}
+                  />
                 </>
               )}
             </>
@@ -127,4 +151,4 @@ const SearchResults = () => {
   );
 };
 
-export default SearchResults;
+export default SearchResultsPage;

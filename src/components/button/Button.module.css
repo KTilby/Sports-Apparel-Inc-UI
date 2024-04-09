@@ -19,6 +19,9 @@
   display: flex;
 }
 
+/*---------------------
+  Shopping Cart Buttons
+-----------------------*/
 .checkOutButton {
   background: var(--flame-orange-color);
   border: none;
@@ -91,4 +94,125 @@
 
 .viewButton:hover {
   opacity: 75%;
+}
+
+
+
+.loginButton:hover {
+  opacity: 75%;
+}
+
+.loginFormButton {
+  color: var(--ghost-white-color);
+  border-radius: 3px;
+  border: 2px solid var(--cadet-gray-color);
+  height: 50px;
+  background-color: var(--cadet-gray-color);
+  font-family: var(--body-font);
+  font-size: 1.1em;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+.loginFormButton:hover {
+  opacity: 75%;
+}
+
+.closeButton {
+  align-items: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  font-size: 1.25em;
+  font-weight: 700;
+}
+
+.closeButton:hover {
+  opacity: 75%;
+}
+
+.buttonUnstyledAbsolute {
+  position: absolute;
+  align-items: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  right: 0;
+  color: var(--yale-blue-color);
+}
+
+/* User Menu */
+
+.loginButton,
+.menuOpen {
+  color: var(--cadet-gray-color);
+  border-radius: 3px;
+  border: 2px solid var(--cadet-gray-color);
+  height: 37.5px;
+  padding: 0px 20px;
+  background-color: var(--ghost-white-color);
+  font-family: var(--body-font);
+  font-size: 1em;
+  cursor: pointer;
+  z-index: 51;
+  display: flex;
+  align-items: center;
+}
+
+.menuOpen {
+  border-bottom-width: 0px;
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
+}
+
+.menuItemBorder,
+.menuItem {
+  color: var(--cadet-gray-color);
+  font-family: var(--body-font);
+  font-size: 1em;
+  background: var(--ghost-white-color);
+  height: 37.5px;
+  border-width: 0px;
+  display: flex;
+  place-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.menuItemBorder {
+  border-top-left-radius: 0px;
+  border-top-right-radius: 0px;
+  border-bottom: 1px solid var(--cadet-gray-color);
+}
+
+.menuItemBorder:hover,
+.menuItem:hover {
+  cursor: pointer;
+  color: color-mix(in srgb, currentColor 25%, transparent);
+}
+
+.linkButton,
+.linkButtonError {
+  border: none;
+  text-decoration: underline;
+  color: var(--yale-blue-color);
+  margin-top: 20px;
+  background: none;
+  font-family: var(--body-font);
+  font-size: 1.1em;
+}
+
+.linkButtonError {
+  font-size: inherit;
+  margin-top: 0px;
+  font-family: var(--body-font);
+  color: red;
+}
+
+.linkButton:hover,
+.linkButtonError:hover {
+  cursor: pointer;
+  opacity: .75;
 }
