@@ -7,7 +7,7 @@ import styles from './SignupInput.module.css';
  * @return component
  */
 const FormItemDropdown = ({
-  onChange, value, id, label, options
+  onChange, value, id, label, options, error, errorMessage
 }) => (
 
   <div className={styles.dropContainer}>
@@ -33,6 +33,13 @@ const FormItemDropdown = ({
         </select>
       </div>
     </label>
+    <div className={styles.error}>
+      {error && (
+        <>
+          {errorMessage}
+        </>
+      )}
+    </div>
   </div>
 );
 

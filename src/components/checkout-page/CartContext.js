@@ -40,9 +40,6 @@ const cartReducer = (state, action) => {
       const storedItemCount = action.itemCount;
       // products currently in cart before login
       const newProducts = JSON.parse(sessionStorage.getItem('cart'));
-      console.log(newProducts);
-      console.log(storedProducts, storedItemCount);
-
       // if products on DB but none in the cart, nothing needs to be saved to DB
       if ((newProducts?.length === 0 || newProducts === null) && storedItemCount > 0) {
         sessionStorage.setItem('cart', JSON.stringify(storedProducts));

@@ -91,9 +91,9 @@ const Signup = ({ handleClose, setUser }) => {
     name: 'state',
     type: 'text',
     label: 'State',
-    errorMessage: 'Must be a valid State',
+    errorMessage: 'Must select a State',
     error: false,
-    value: ''
+    value: 'Select a State'
   });
   const [zipCodeInput, setZipCodeInput] = useState({
     name: 'zipCode',
@@ -252,6 +252,13 @@ const Signup = ({ handleClose, setUser }) => {
     if (cityInput.value.length < 1) {
       setCityInput({
         ...cityInput,
+        error: true
+      });
+      formValid = false;
+    }
+    if (stateInput.value === 'Select a State' || stateInput.value === '') {
+      setStateInput({
+        ...stateInput,
         error: true
       });
       formValid = false;
@@ -416,6 +423,8 @@ const Signup = ({ handleClose, setUser }) => {
             value={stateInput.value}
             onChange={onChangeState}
             options={STATES_LIST}
+            error={stateInput.error}
+            errorMessage={stateInput.errorMessage}
           />
         </div>
         <div className={styles.row}>
