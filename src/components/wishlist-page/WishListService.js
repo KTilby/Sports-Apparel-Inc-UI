@@ -1,11 +1,9 @@
-// import getImage from '../../utils/productImageControl';
-
 const wishListService = {
   addToWishList: (product, wishDispatch, wishState) => {
     // use Array.findIndex() to see if the product already exists in the cart
     const existingProductIndex = wishState.products?.findIndex((item) => item.id === product.id);
     if (existingProductIndex !== -1) {
-      window.alert('item already exists');
+      window.alert('This item is already saved to your wishlist.');
     } else {
       wishDispatch({
         type: 'add',

@@ -12,10 +12,6 @@ const LoaderProvider = ({ children }) => {
   }, [setLoading]);
 
   const stopLoading = useCallback(() => {
-    // set delay for testing purposes
-    // setTimeout(() => {
-    //   setLoading(false);
-    // }, 500);
     setLoading(false);
   }, [setLoading]);
 

@@ -1,4 +1,4 @@
-.input {
+.loginInput {
   border: none;
   color: var(--yale-blue-color);
   border-bottom: 2px solid var(--yale-blue-color);
@@ -10,6 +10,20 @@
   padding-left: 35px;
   background-color: var(--ghost-white-color);
   width: 100%;
+}
+
+.loginInputName {
+  border: none;
+  color: var(--yale-blue-color);
+  border-bottom: 2px solid var(--yale-blue-color);
+  font-family: inherit;
+  font-size: 95%;
+  height: 30px;
+  margin-bottom: .25em;
+  padding: 5px;
+  padding-left: 35px;
+  background-color: var(--ghost-white-color);
+  width: 40%;
 }
 
 .input:focus,
@@ -31,6 +45,10 @@
   margin-bottom: 1.25em;
   margin-top: .5em;
   height: 1em;
+}
+
+.errorLink {
+  color: red;
 }
 
 .row {

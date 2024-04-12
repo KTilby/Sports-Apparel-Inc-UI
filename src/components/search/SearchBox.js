@@ -46,7 +46,7 @@ const SearchBox = () => {
     <div>
       <div className={styles.searchContainer}>
         <Button className="buttonUnstyled" aria-label="search" onClick={handleClick}>
-          <SearchIcon />
+          <SearchIcon style={{ color: 'var(--yale-blue-color)' }} />
         </Button>
         <InputBase
           value={searchTerm}

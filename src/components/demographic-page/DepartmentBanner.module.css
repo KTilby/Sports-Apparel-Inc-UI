@@ -1,0 +1,97 @@
+ /* .container {
+    width: 85%;
+    position: absolute;
+    height: 200px;
+} 
+
+ .imageContainer {
+    height: 200px;
+    position: relative;
+    padding-left: 160px;
+    padding-top: 0;
+    width: 84.8%;
+    margin-top: 0;
+  }
+  
+  .image {
+      max-height: 100%;
+      object-fit: cover;
+      object-position: 27%, 27%;
+      min-width: 100%;
+  } */
+  
+  /* .running {
+      object-position: top;
+  } */
+  
+  /* .typography {
+    color: #1f3770;
+    font-family: var(--title-font);
+    font-size: 4.5em;
+    position: absolute;
+    padding: none;
+    margin: none;
+    height:fit-content;
+  }  */
+
+  .container {
+    margin-bottom: 40px;
+    width: 100%;
+}
+
+.imageContainer {
+    height: 250px;
+    position: relative;
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+.Men {
+    height: 250px;
+    object-fit: cover;
+    /* object-position: 20% 50%; */
+    width: 100%;
+    object-position: 20% 37%;
+}
+
+.Women {
+    height: 250px;
+    object-fit: cover;
+    /* object-position: 20% 50%; */
+    width: 100%;
+    object-position: center;
+}
+
+.Kids {
+    height: 250px;
+    object-fit: cover;
+    /* object-position: 20% 50%; */
+    width: 100%;
+    object-position: 20% 28%;
+}
+
+.Pets {
+    height: 250px;
+    object-fit: cover;
+    /* object-position: 20% 50%; */
+    width: 100%;
+    object-position: 20% 31%;
+}
+
+.USCWomen {
+    height: 250px;
+    object-fit: cover;
+    /* object-position: 20% 50%; */
+    width: 100%;
+    object-position: 20% 40%;  
+}
+
+.typography {
+    color: var(--ghost-white-color);
+    font-family: var(--title-font);
+    font-size: 3em;
+    left: 20px;
+    position: absolute;
+    top: 20px;
+}

@@ -1,8 +1,6 @@
 import React from 'react';
 import { useCart } from './CartContext';
 import OrderItem from './NewOrderItem';
-// import { getSubtotal } from './ReviewOrderWidgetService';
-// import styles from './ReviewOrderWidget.module.css';
 
 /**
  * @name ReviewOrderWidget
@@ -21,15 +19,6 @@ const ReviewOrderWidget = () => {
           product={product}
         />
       ))}
-      {/* <hr /> */}
-      {/* <div className={styles.subtotal}>
-        <div>
-          <p>Subtotal</p>
-        </div>
-        <div className={styles.price}>
-          <p>{getSubtotal(products)}</p>
-        </div>
-      </div> */}
     </>
   );
 };

@@ -34,8 +34,20 @@ export const getFirstCharacter = (str) => (str ? str.charAt(0) : '');
  */
 export const parseColorCodeAndName = (colorCodeWithName) => {
   if (!colorCodeWithName) {
-    return { colorCode: '', colorName: '' };
+    return {};
   }
   const [colorCode, colorName] = colorCodeWithName.split('|');
   return { colorCode, colorName };
+};
+
+export const getInputType = (type) => {
+  switch (type) {
+    case 'password':
+      return 'password';
+    case 'number':
+      return 'number';
+    case 'email':
+    default:
+      return 'text';
+  }
 };

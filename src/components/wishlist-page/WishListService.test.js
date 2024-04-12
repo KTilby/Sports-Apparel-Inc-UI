@@ -18,12 +18,20 @@ describe('WishListService', () => {
     const product = {
       id: 1,
       name: 'Product 1',
-      price: 10,
-      category: 'Baseball',
       description: 'Description 1',
+      longDescription: 'Description 2',
       demographic: 'Demographic 1',
+      category: 'Baseball',
       type: 'Type 1',
+      releaseDate: '04-20-1942',
+      primaryColorCodeWithName: '#6CABDD|sky blue',
+      secondaryColorCodeWithName: '#E0B0FF|mauve',
+      styleNumber: 'sc68234',
+      globalProductCode: 'po-3869517',
+      active: true,
       pets: false,
+      price: 10.99,
+      image: getImage('Baseball'),
       quantity: 1
     };
 
@@ -35,14 +43,22 @@ describe('WishListService', () => {
       type: 'add',
       product: {
         id: 1,
-        title: 'Product 1',
-        price: 10,
-        category: 'Baseball',
+        name: 'Product 1',
         description: 'Description 1',
+        longDescription: 'Description 2',
         demographic: 'Demographic 1',
+        category: 'Baseball',
         type: 'Type 1',
-        quantity: 1,
-        image: getImage(product.category)
+        releaseDate: '04-20-1942',
+        primaryColorCodeWithName: '#6CABDD|sky blue',
+        secondaryColorCodeWithName: '#E0B0FF|mauve',
+        styleNumber: 'sc68234',
+        globalProductCode: 'po-3869517',
+        active: true,
+        pets: false,
+        price: 10.99,
+        image: getImage('Baseball'),
+        quantity: 1
       }
     });
   });
@@ -53,8 +69,20 @@ describe('WishListService', () => {
     const product = {
       id: 1,
       name: 'Product 1',
-      price: 10,
       description: 'Description 1',
+      longDescription: 'Description 2',
+      demographic: 'Demographic 1',
+      category: 'Baseball',
+      type: 'Type 1',
+      releaseDate: '04-20-1942',
+      primaryColorCodeWithName: '#6CABDD|sky blue',
+      secondaryColorCodeWithName: '#E0B0FF|mauve',
+      styleNumber: 'sc68234',
+      globalProductCode: 'po-3869517',
+      active: true,
+      pets: false,
+      price: 10.99,
+      image: getImage('Baseball'),
       quantity: 1
     };
 

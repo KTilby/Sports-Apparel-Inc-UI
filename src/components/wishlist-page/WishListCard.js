@@ -4,7 +4,7 @@ import {
   Card, CardHeader, CardMedia, CardContent, CardActions,
   Avatar, Typography
 } from '@material-ui/core';
-import { AddShoppingCart, Delete, Share } from '@material-ui/icons';
+import { AddShoppingCart, Delete } from '@material-ui/icons';
 import styles from './WishListCard.module.css';
 import { useCart } from '../checkout-page/CartContext';
 import Button from '../button/Button';
@@ -83,9 +83,6 @@ const WishListCard = ({ product, setOpen, setCurrentProd }) => {
         </CardContent>
       </Link>
       <CardActions className={styles.buttonActions} disableSpacing>
-        <Button className="buttonUnstyled" aria-label="share">
-          <Share style={{ color: 'var(--flame-orange-color)', width: '30px', height: '30px' }} />
-        </Button>
         <Button className="buttonUnstyled" aria-label="add to shopping cart" onClick={handleAddToCart}>
           <AddShoppingCart style={{ color: 'var(--flame-orange-color)', width: '30px', height: '30px' }} />
         </Button>

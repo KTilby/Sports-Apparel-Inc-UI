@@ -2,7 +2,7 @@ import React from 'react';
 import {
   Card, CardContent, CardMedia, Typography, CardActions, Avatar
 } from '@material-ui/core';
-import { Delete, Share, PlaylistAdd } from '@material-ui/icons';
+import { Delete, Favorite } from '@material-ui/icons';
 import styles from './OrderItem.module.css';
 import { toPrice } from './ReviewOrderWidgetService';
 import Button from '../button/Button';
@@ -32,32 +32,31 @@ const OrderItem = ({ product }) => {
   };
 
   return (
-    <Card className="mb-3" style={{ marginBottom: '10px' }}>
-      <CardContent className={styles.cardContent}>
-        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-          <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+    <Card className={styles.itemCard}>
+      <CardContent className={styles.itemCardContent}>
+        <div className={styles.leftSection}>
+          <div className={styles.cardLeft}>
             {/* Item Avatar */}
             <Avatar
               aria-label="demographics"
               className={styles.avatar}
               style={{
-                backgroundColor: getDemographicColor(product.demographic),
-                marginRight: '8px'
+                backgroundColor: getDemographicColor(product.demographic)
               }}
             >
               {getFirstCharacter(product.demographic)}
             </Avatar>
             {/* Item Image */}
             <CardMedia
+              className={styles.itemImage}
               image={product.image}
               title="placeholder"
               component="img"
-              style={{ width: 100, height: 100 }}
               alt="Shopping item"
             />
             {/* Item Details */}
-            <div style={{ marginLeft: 15 }}>
-              <Typography variant="h5">{product.name}</Typography>
+            <div className={styles.itemCardDetails}>
+              <Typography className={`${styles.typography} ${styles.itemTitle}`}>{product.name}</Typography>
               <Typography className={styles.subtitle}>
                 {product.demographic}
                 {' '}
@@ -65,39 +64,42 @@ const OrderItem = ({ product }) => {
                 {' '}
                 {product.type}
               </Typography>
-              <Typography variant="body2" className={styles.typography}>{product.description}</Typography>
-              <Typography variant="body2" className={styles.typography}>{toPrice(product.price)}</Typography>
-            </div>
-          </div>
-          {/* Quantity and Total Price */}
-          <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-end' }}>
-            <div style={{ width: 50 }}>
-              <Typography variant="h5" className="fw-normal mb-0">{product.quantity}</Typography>
-            </div>
-            <div style={{ width: 80 }}>
-              <Typography variant="h5" className="mb-0">{toPrice(product.quantity * product.price)}</Typography>
+              <Typography className={`${styles.typography} ${styles.body2}`}>{product.description}</Typography>
             </div>
           </div>
         </div>
-      </CardContent>
-      <CardActions className={styles.buttonActions} style={{ justifyContent: 'flex-end' }}>
-        <Button className="buttonUnstyled" aria-label="share with someone">
-          <Share style={{ color: 'var(--flame-orange-color', width: '30px', height: '30px' }} />
-        </Button>
-        {isCustomerLoggedIn
-        && (
-          <Button className="buttonUnstyled" aria-label="add to your wish list" onClick={handleAddToWishList}>
-            <PlaylistAdd style={{ color: 'var(--flame-orange-color', width: '30px', height: '30px' }} />
+        <div className={styles.rightSection}>
+          <div className={styles.cardRight}>
+            <div className={styles.priceContainer}>
+              <Typography className={`${styles.typography} ${styles.quantityHeader}`}>Price</Typography>
+              <Typography className={`${styles.h5} ${styles.itemQuantity}`}>{toPrice(product.price)}</Typography>
+            </div>
+            <div className={styles.priceContainer}>
+              <Typography className={`${styles.typography} ${styles.quantityHeader}`}>Quantity</Typography>
+              <Typography className={`${styles.h5} ${styles.itemQuantity}`}>{product.quantity}</Typography>
+            </div>
+            <div className={styles.priceContainer}>
+              <Typography className={`${styles.typography} ${styles.totalHeader}`}>Total</Typography>
+              <Typography className={`${styles.h5} ${styles.itemQuantity}`}>{toPrice(product.quantity * product.price)}</Typography>
+            </div>
+          </div>
+        </div>
+        <CardActions className={styles.buttonActions}>
+          {isCustomerLoggedIn
+          && (
+            <Button className="buttonUnstyled" aria-label="add to your wish list" onClick={handleAddToWishList}>
+              <Favorite style={{ color: 'var(--flame-orange-color', width: '30px', height: '30px' }} />
+            </Button>
+          )}
+          <Button
+            className="buttonUnstyled"
+            aria-label="Delete"
+            onClick={handleDeleteFromCart}
+          >
+            <Delete style={{ color: 'var(--flame-orange-color)', width: '30px', height: '30px' }} />
           </Button>
-        )}
-        <Button
-          className="buttonUnstyled"
-          aria-label="Delete"
-          onClick={handleDeleteFromCart}
-        >
-          <Delete style={{ color: 'var(--flame-orange-color)', display: 'none' }} />
-        </Button>
-      </CardActions>
+        </CardActions>
+      </CardContent>
     </Card>
   );
 };

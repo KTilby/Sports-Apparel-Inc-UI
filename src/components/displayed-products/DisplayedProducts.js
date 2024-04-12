@@ -19,7 +19,7 @@ const DisplayedProducts = ({
     <div className={styles.title}>
       <h2 className={styles.heading}>{header}</h2>
     </div>
-    <div className={styles.displayedProductsList}>
+    <div className={header === 'Popular Products' ? styles.popularGrid : styles.grid}>
       {children}
     </div>
   </div>

@@ -1,0 +1,85 @@
+.action {
+  display: flex;
+  align-items: center;
+}
+
+.avatar {
+  font-family: var(--body-font);
+  font-size: 1.75em;
+  height: 60px;
+  width: 60px;
+}
+
+.buttonActions {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 20px;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  height: 125px;
+  justify-content: space-between;
+  padding: 20px;
+  width: 50%;
+}
+
+.header {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+}
+
+.media {
+  height: 300px;
+}
+
+.modalBackdrop {
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.8);
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  left: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 2;
+}
+
+.root {
+  margin-left: auto;
+  margin-right: auto;
+  -moz-box-shadow: 3px 3px 5px 0px rgba(0, 0, 0, 0.4);
+  -webkit-box-shadow: 3px 3px 5px 0px rgba(0, 0, 0, 0.4);
+  border-radius: 0px;
+  box-shadow: 3px 3px 5px 0px rgba(0, 0, 0, 0.4);
+  font-family: var(--body-font);
+  text-align: left;
+}
+
+.row {
+  display: flex;
+}
+
+.title {
+  font-family: var(--body-font);
+  font-weight: 700;
+}
+
+.typography,
+.subtitle {
+  color: var(--jet-black-color);
+  display: flex;
+  font-family: var(--body-font);
+  font-size: 17px;
+  margin-top: 0px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 100%;
+}
+
+.subtitle {
+  font-weight: 700;
+}

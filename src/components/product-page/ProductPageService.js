@@ -19,7 +19,6 @@ export const fetchProducts = async (setProducts, setApiError) => {
   if (group) {
     endpoint += `?demographic=${group}`;
   }
-
   await HttpHelper(endpoint, 'GET')
     .then((response) => {
       if (response.ok) {

@@ -1,0 +1,31 @@
+.container {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+    color: var(--yale-blue-color);
+    width: 100%;
+}
+
+.title {
+    line-height: 1em;
+    margin-bottom: .25em;
+    margin-top: 0px;
+    color: var(--jet-black-color);
+}
+
+.signupForm {
+    align-self: center;
+    display: flex;
+    flex-direction: column;
+    padding-top: 20px;
+    width: 80%;
+}
+
+.row {
+    display: flex;
+    gap: 10%;
+    width: 100%;
+}
+
+ 

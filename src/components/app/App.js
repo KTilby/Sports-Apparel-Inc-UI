@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { StylesProvider } from '@material-ui/core/styles';
 import styles from './App.module.css';
 import HomePage from '../home-page/HomePage';
-import CheckoutPage from '../checkout-page/NewCheckoutPage';
+import CheckoutPage from '../checkout-page/CheckoutPage';
 import ConfirmationPage from '../confirmation-page/ConfirmationPage';
 import Header from '../header/Header';
 import Footer from '../footer/Footer';
@@ -12,6 +12,8 @@ import DemographicPage from '../demographic-page/DemographicPage';
 import ProductDetailPage from '../product-page/ProductDetailPage';
 import Login from '../login/Login';
 import WishListPage from '../wishlist-page/WishListPage';
+import ShoppingCartPage from '../checkout-page/ShoppingCartPage';
+import Signup from '../signup/Signup';
 
 /**
  * @name App
@@ -44,7 +46,8 @@ const App = () => {
           {open && <Login handleClose={handleClose} user={user} setUser={setUser} />}
           <Switch>
             <Route exact path="/" render={() => <HomePage />} />
-            <Route exact path="/checkout" render={() => <CheckoutPage />} />
+            <Route exact path="/cart" render={() => <ShoppingCartPage />} />
+            <Route exact path="/checkout" render={() => <CheckoutPage user={user} />} />
             <Route exact path="/confirmation" render={() => <ConfirmationPage />} />
             <Route exact path="/men" render={() => <DemographicPage demographic="Men" />} />
             <Route exact path="/women" render={() => <DemographicPage demographic="Women" />} />
@@ -53,6 +56,7 @@ const App = () => {
             <Route exact path="/search-results" render={() => <SearchResults />} />
             <Route path="/products/:productId" render={() => <ProductDetailPage />} />
             <Route exact path="/wishlist" render={() => <WishListPage />} />
+            <Route exact path="/signup" render={() => <Signup />} />
           </Switch>
           <Footer />
         </div>

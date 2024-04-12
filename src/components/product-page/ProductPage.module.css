@@ -30,8 +30,8 @@
 .header {
   display: flex;
   justify-content: center;
-  padding: 20px;
   padding-left: 0px;
+  padding-top: 0px;
 }
 
 .media {
@@ -50,15 +50,35 @@
   justify-content: center;
 }
 
+/* .placeholder {
+  height: 640px;
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+} */
+
 .content {
   display: flex;
+  transform: translate(0px, 100%);
+  opacity: 0%;
+  transform: scale(1, 0);
+  transition: all .4s;
   flex-direction: column;
   width: 80%;
   margin: auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.showContent {
+  transform: scale(1);
+  opacity: 100%;
 }
 
 .row {
   display: flex;
+  align-items: center;
 }
 
 .title {

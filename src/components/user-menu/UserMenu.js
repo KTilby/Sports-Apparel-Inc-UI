@@ -24,8 +24,7 @@ const UserMenu = ({ handleLogout, user }) => {
   return (
     <div className={styles.container}>
       <Button className={open ? 'menuOpen' : 'loginButton'} onClick={open ? handleClose : handleOpen}>
-        Hi,
-        {' '}
+        Hi,&nbsp;
         {user.firstName}
         {open ? <KeyboardArrowUp style={{ marginLeft: '2px' }} /> : <KeyboardArrowDown style={{ marginLeft: '2px' }} />}
       </Button>

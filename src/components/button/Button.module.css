@@ -31,9 +31,24 @@
   font-family: var(--body-font);
   font-weight: 600px;
   margin-top: 2em;
-  margin-left: 40px;
   padding: 0.5rem 3rem;
-  width: 75%;
+  width: 100%;
+  font-size: 1em;
+}
+
+.checkOutButtonDisabled {
+  background: var(--flame-orange-color);
+  border: none;
+  border-radius: 10px;
+  color: var(--ghost-white-color);
+  font-family: var(--body-font);
+  font-weight: 600px;
+  margin-top: 2em;
+  padding: 0.5rem 3rem;
+  width: 100%;
+  font-size: 1em;
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 .payButton {
@@ -96,8 +111,6 @@
   opacity: 75%;
 }
 
-
-
 .loginButton:hover {
   opacity: 75%;
 }
@@ -112,6 +125,19 @@
   font-size: 1.1em;
   cursor: pointer;
   margin-top: 20px;
+}
+
+.signupFormButton {
+  width: 100%;
+  color: var(--ghost-white-color);
+  border-radius: 3px;
+  border: 2px solid var(--cadet-gray-color);
+  height: 45px;
+  background-color: var(--cadet-gray-color);
+  font-family: var(--body-font);
+  font-size: 1.1em;
+  cursor: pointer;
+  margin-top: 18px;
 }
 
 .loginFormButton:hover {
@@ -140,6 +166,18 @@
   cursor: pointer;
   display: flex;
   right: 0;
+  color: var(--yale-blue-color);
+}
+
+.viewPasswordButton {
+  position: absolute;
+  align-items: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  bottom: 25px;
+  left: auto;
+  right: 0px;
   color: var(--yale-blue-color);
 }
 

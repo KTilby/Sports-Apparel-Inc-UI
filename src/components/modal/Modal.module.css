@@ -37,7 +37,7 @@
 
 .modalBackdrop {
   align-items: center;
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: rgba(0, 0, 0, 0.2);
   bottom: 0;
   display: flex;
   justify-content: center;
@@ -46,7 +46,13 @@
   right: 0;
   top: 0;
   z-index: 2;
+  transition: all .3s;
 }
+
+.showBackdrop {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
 
 .root {
   -moz-box-shadow: 3px 3px 5px 0px rgba(0, 0, 0, 0.4);
@@ -56,6 +62,13 @@
   font-family: var(--body-font);
   text-align: left;
   width: 550px;
+  transform: scale(1, 0);
+  transition: all .4s;
+  transition-timing-function: ease-in;
+}
+
+.showModal {
+  transform: scale(1);
 }
 
 .row {
