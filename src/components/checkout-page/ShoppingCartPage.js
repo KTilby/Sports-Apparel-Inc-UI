@@ -1,20 +1,30 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import { useCart } from './CartContext';
-import styles from './CheckoutPage.module.css';
+import styles from './ShoppingCartPage.module.css';
 import ReviewOrderWidget from './ReviewOrderWidget';
-import { getSubtotal } from './ReviewOrderWidgetService';
+import { getSubtotal, toPrice } from './ReviewOrderWidgetService';
 import Button from '../button/Button';
 import EmptyCartPage from './EmptyCartPage';
 
 /**
- * @name CheckoutPage
+ * @name ShoppingCartPage
  * @description A view that contains details needed to process a transaction for items
  * @return component
  */
-const CheckoutPage = () => {
+const ShoppingCartPage = () => {
   const {
     state: { products, itemCount }
   } = useCart();
+  const navigate = useHistory();
+  const user = JSON.parse(sessionStorage.getItem('user'));
+  const isCustomerLoggedIn = user && user.role === 'Customer';
+
+  const handleCheckout = () => {
+    navigate.push({
+      pathname: '/checkout'
+    });
+  };
 
   return (
     <>
@@ -22,8 +32,8 @@ const CheckoutPage = () => {
         <EmptyCartPage />
       ) : (
         // Review Order Card
-        <div className={styles.checkoutContainer2}>
-          <div className={`${styles.step} ${styles.order}`}>
+        <div className={styles.cartContainer}>
+          <div className={styles.order}>
             <h3 className={styles.title}>Review Order</h3>
             <ReviewOrderWidget />
           </div>
@@ -34,12 +44,14 @@ const CheckoutPage = () => {
               {itemCount}
               {' '}
               items):
-              <span className={styles.price}>{getSubtotal(products)}</span>
+              {' '}
+              <span className={styles.price}>{toPrice(getSubtotal(products))}</span>
             </h3>
-            <hr />
-            <Button className="checkOutButton">
-              Proceed to checkout
-            </Button>
+            {(isCustomerLoggedIn && itemCount > 0) && (
+              <Button className="checkOutButton" onClick={handleCheckout}>
+                Proceed to checkout
+              </Button>
+            )}
           </div>
         </div>
       )}
@@ -47,4 +59,4 @@ const CheckoutPage = () => {
 
   );
 };
-export default CheckoutPage;
+export default ShoppingCartPage;

@@ -14,18 +14,20 @@ const FormItemDropdown = ({
     <label className={styles.label} htmlFor={id}>
       {label}
       <div>
+        {/* eslint-disable-next-line jsx-a11y/no-onchange */}
         <select
           className={styles.input}
           id={id}
-          onBlur={onChange}
+          onChange={onChange}
           value={value}
         >
-          {options.map((optionText) => (
+          <option value="">Select a State</option>
+          {Object.entries(options).map(([optionKey, optionValue]) => (
             <option
-              value={optionText}
-              key={optionText}
+              value={optionKey}
+              key={optionKey}
             >
-              {optionText}
+              {optionValue}
             </option>
           ))}
         </select>

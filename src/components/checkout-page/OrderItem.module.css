@@ -1,35 +1,144 @@
 p {
   color: var(--cadet-grey-color);
+  font-family: var(--body-font);
 }
 
-.orderItem {
-  display:grid;
-  grid-template-columns: 2fr 3fr 1fr;
-  grid-template-rows: 1fr;
-  gap: 0px 1em;
+.avatar {
+  font-family: var(--body-font);
+  height: 50px;
+  margin-right: 8px;
+  width: 50px;
+}
+
+.body2 {
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+.buttonActions {
+  display: flex;
+  justify-content: flex-end;
   align-items: center;
 }
 
-.itemTitle {
-  font-weight: 700;
+.cardRight {
+  display: flex;
 }
 
-.price {
-  align-self: end;
-  justify-self: end;
+.cardLeft {
+  display: flex;
+  align-items: center;
+}
+
+.h5 {
+  font-size: 1.5rem;
+  font-weight: 500;
+  line-height: 1.2;
+  font-family: var(--body-font);
+}
+
+.itemCard {
+  background: var(--ghost-white-color);
+  position: relative;
+  margin-bottom: 10px;
+  -moz-box-shadow: 3px 3px 5px 0px rgba(0, 0, 0, 0.4);
+  -webkit-box-shadow: 3px 3px 5px 0px rgba(0, 0, 0, 0.4);
+  border-radius: 0px;
+  box-shadow: 3px 3px 5px 0px rgba(0, 0, 0, 0.4);
+}
+
+.itemCard.deleted {
+  visibility: hidden;
+  overflow: hidden;
+  transition: all 0.2s;
+  height: 0px;
+  padding: 0px;
+  margin: 0px;
+  box-shadow: none;
+  border: none;
+}
+
+.itemCardContent {
+  display: flex;
+  justify-content: space-between;
+}
+
+.itemCardDetails {
+  margin-left: 15px;
+}
+
+.itemTitle {
+  font-size: 1.5rem;
+  font-weight: 700;
+  font-family: var(--title-font);
+}
+
+.leftSection,
+.rightSection {
+  display: flex;
+  flex-direction: column;
+}
+
+.leftSection {
+  width: 400px;
+}
+.priceContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin: 2em;
 }
 
 .typography,
 .subtitle {
-    color: var(--jet-black-color);
-    display: flex;
-    font-family: var(--body-font);
-    margin-top: 0px;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    width: 100%;
+  color: var(--jet-black-color);
+  display: flex;
+  font-family: var(--body-font);
+  margin-top: 0px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 100%;
 }
 
 .subtitle {
-    font-weight: 700;
+  font-weight: 700;
+}
+
+.quantityHeader,
+.totalHeader {
+  font-size: 0.9rem;
+  color: var(--cadet-grey-color);
+  font-family: var(--body-font);
+  font-weight: 400;
+  line-height: 1.25;
+}
+
+.totalHeader,
+.quantityHeader {
+  order: 1;
+  justify-content: center;
+}
+
+.itemImage {
+  width: 100px;
+  height: 100px;
+  margin-right: 10px;
+}
+
+.itemQuantity {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  margin-bottom: 5px;
+  color: var(--yale-blue-color);
+}
+
+.quantityInput {
+  width: 40px;
+}
+
+.totalPrice {
+  color: var(--yale-blue-color);
 }

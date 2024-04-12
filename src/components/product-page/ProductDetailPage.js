@@ -4,7 +4,7 @@ import {
   Avatar, CardMedia, CardHeader, Typography
 } from '@material-ui/core';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
-import PlaylistAddIcon from '@material-ui/icons/PlaylistAdd';
+import FavoriteIcon from '@material-ui/icons/Favorite';
 import { fetchProductById } from './ProductPageService';
 import { useCart } from '../checkout-page/CartContext';
 import styles from './ProductPage.module.css';
@@ -23,13 +23,12 @@ const ProductDetailPage = () => {
   const [product, setProduct] = useState({});
   const [apiError, setApiError] = useState(false);
   const { dispatch, state } = useCart();
-  const [isLoading, setIsLoading] = useState(true);
+  const [showContent, setShowContent] = useState(false);
 
   // use the useCallback to prevent re-render unnecessarily
   const getProductById = useCallback(() => {
     fetchProductById(productId, (data) => {
       setProduct(data);
-      setIsLoading(false);
     }, setApiError);
   }, [productId]);
   const { wishDispatch, wishState } = useWishList();
@@ -38,6 +37,10 @@ const ProductDetailPage = () => {
   useEffect(() => {
     getProductById();
   }, [productId, getProductById]);
+
+  useEffect(() => {
+    setShowContent(true);
+  }, []);
 
   const handleAddToCart = () => {
     cartService.addToCart(product, dispatch, state);
@@ -54,56 +57,54 @@ const ProductDetailPage = () => {
 
   return (
     <div className={styles.container}>
-      {isLoading ? (
-        <div>Loading...</div>
-      ) : (
-        <>
-          {apiError && (
-            <p className={styles.errMsg} data-testid="errMsg">
-              {Constants.API_ERROR}
-            </p>
-          )}
-          <div className={styles.content}>
-            <CardHeader
-              classes={{
-                root: styles.header,
-                title: styles.title,
-                action: styles.action
-              }}
-              avatar={(
-                <Avatar
-                  aria-label="demographics"
-                  className={styles.avatar}
-                  style={{
-                    backgroundColor: getDemographicColor(product.demographic)
-                  }}
-                >
-                  {getFirstCharacter(product.demographic)}
-                </Avatar>
+      {apiError && (
+        <p className={styles.errMsg} data-testid="errMsg">
+          {Constants.API_ERROR}
+        </p>
+      )}
+      <div className={styles.placeholder}>
+        <div className={`${styles.content} ${showContent && styles.showContent}`}>
+          <CardHeader
+            classes={{
+              root: styles.header,
+              title: styles.title,
+              action: styles.action
+            }}
+            avatar={(
+              <Avatar
+                aria-label="demographics"
+                className={styles.avatar}
+                style={{
+                  backgroundColor: getDemographicColor(product.demographic)
+                }}
+              >
+                {getFirstCharacter(product.demographic)}
+              </Avatar>
               )}
-              title={product.name}
-              titleTypographyProps={{ variant: 'h4' }}
+            title={product.name}
+            titleTypographyProps={{ variant: 'h4' }}
+          />
+          <div className={styles.row}>
+            <CardMedia
+              className={styles.media}
+              image={getImage(product.category, product.pets)}
+              title={product.category}
             />
-            <div className={styles.row}>
-              <CardMedia
-                className={styles.media}
-                image={getImage(product.category, product.pets)}
-                title={product.category}
-              />
 
-              <div className={styles.column}>
-                <Typography className={styles.subtitle}>
-                  {product.demographic}
-                  {' '}
-                  {product.category}
-                  {' '}
-                  {product.type}
-                </Typography>
+            <div className={styles.column}>
+              <Typography className={styles.subtitle}>
+                {product.demographic}
+                {' '}
+                {product.category}
+                {' '}
+                {product.type}
+              </Typography>
+              <div>
                 <Typography className={styles.typography}>
                   Available In:
                 </Typography>
                 <div className={styles.row}>
-                  {swatchesColorCodeAndName.map((swatch) => (
+                  {swatchesColorCodeAndName && swatchesColorCodeAndName.map((swatch) => (
                     <div
                       key={swatch.colorName}
                       style={{
@@ -129,20 +130,23 @@ const ProductDetailPage = () => {
                     </div>
                   ))}
                 </div>
-                <Typography className={styles.typography}>
-                  {product.description}
-                </Typography>
-                <Typography className={styles.typography}>
-                  {product.longDescription}
-                </Typography>
+              </div>
+              <Typography className={styles.typography}>
+                {product.description}
+              </Typography>
+              <Typography className={styles.typography}>
+                {product.longDescription}
+              </Typography>
+              <div className={styles.row}>
                 <Typography className={styles.typography}>
                   {' '}
                   Price: $
                   {product.price}
-                  {isCustomerLoggedIn
+                </Typography>
+                {isCustomerLoggedIn
                   && (
                     <Button className="buttonUnstyled" aria-label="add to wish list" onClick={handleAddToWishList}>
-                      <PlaylistAddIcon style={
+                      <FavoriteIcon style={
                         {
                           color: 'var(--flame-orange-color)', width: '30px', height: '30px', paddingLeft: '15px'
                         }
@@ -150,20 +154,19 @@ const ProductDetailPage = () => {
                       />
                     </Button>
                   )}
-                  <Button className="buttonUnstyled" aria-label="add to shopping cart" onClick={handleAddToCart}>
-                    <AddShoppingCartIcon style={
+                <Button className="buttonUnstyled" aria-label="add to shopping cart" onClick={handleAddToCart}>
+                  <AddShoppingCartIcon style={
                       {
                         color: 'var(--flame-orange-color)', width: '30px', height: '30px', paddingLeft: '15px'
                       }
                     }
-                    />
-                  </Button>
-                </Typography>
+                  />
+                </Button>
               </div>
             </div>
           </div>
-        </>
-      )}
+        </div>
+      </div>
     </div>
   );
 };

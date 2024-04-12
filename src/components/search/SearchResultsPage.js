@@ -10,6 +10,9 @@ import { useLoader } from '../../contexts/LoaderContext';
 import Loader from '../loader/Loader';
 import { ProductContext } from '../../contexts/ProductContext';
 import Pagination from '../pagination/Pagination';
+import FilterMenu from '../filter-menu/FilterMenu';
+import RickModal from '../rick-modal/RickModal';
+import DepartmentBanner from '../demographic-page/DepartmentBanner';
 
 const SearchResultsPage = () => {
   const location = useLocation();
@@ -18,13 +21,15 @@ const SearchResultsPage = () => {
   const { searchTerm } = location.state;
   const [searchResults, setSearchResults] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
+  const [isRick, setIsRick] = useState(false);
   const [currentProduct, setCurrentProd] = useState();
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [selectedFilters, setSelectedFilters] = useState([]);
   const { loading } = useLoader();
   const noResultsMessage = `Oh No! We couldn't find a match for "${searchTerm}"`;
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 20;
+  const [itemsPerPage, setItemsPerPage] = useState(20); // Default items per page
+  const [priceFilter, setPriceFilter] = useState(' Featured');
 
   useEffect(() => {
     const lowerCaseTerm = searchTerm.toLowerCase();
@@ -50,23 +55,44 @@ const SearchResultsPage = () => {
     setIsOpen(false);
   };
 
+  const openRickModal = () => {
+    setIsRick(true);
+  };
+
+  const closeRickModal = () => {
+    setIsRick(false);
+  };
+
   const applyFilters = (filters) => {
     setSelectedFilters(filters);
     setCurrentPage(1);
   };
 
   useEffect(() => {
+    let filtered = searchResults;
     // Filter products based on selected filters
     if (selectedFilters.length === 0) {
       // If no filters selected, display searched products
       setFilteredProducts(searchResults);
     } else {
-      const filtered = searchResults.filter((product) => selectedFilters.includes(product.category)
+      filtered = searchResults.filter((product) => selectedFilters.includes(product.category)
       || selectedFilters.includes(product.type)
       || selectedFilters.includes(product.name));
       setFilteredProducts(filtered);
     }
-  }, [selectedFilters, searchResults]);
+
+    let sorted = filtered;
+    if (priceFilter === 'Price: High to low') {
+      sorted = [...filtered].sort((a, b) => b.price - a.price);
+    } else if (priceFilter === 'Price: Low to high') {
+      sorted = [...filtered].sort((a, b) => a.price - b.price);
+    }
+    setFilteredProducts(sorted);
+  }, [selectedFilters, priceFilter, searchResults]);
+
+  const handlePriceFilterChange = (filter) => {
+    setPriceFilter(filter);
+  };
 
   useEffect(() => {
     const filters = history.listen(() => {
@@ -85,65 +111,90 @@ const SearchResultsPage = () => {
   // Change page
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
+  const handleItemsPerPageChange = (newItemsPerPage) => {
+    setItemsPerPage(newItemsPerPage);
+    setCurrentPage(1);
+  };
+
   return (
     <div className={styles.searchResultPageContainer}>
       {loading ? (
         <Loader when={loading} />
       ) : (
         <>
-          {apiError ? (
-            <div className={styles.noResultContainer}>
-              <h2 className={styles.title}>Error Fetching Products</h2>
+          {apiError && <p>Error fetching products.</p>}
+          {isOpen && (
+            <Modal
+              onClick={closeModal}
+              isOpen={isOpen}
+              product={currentProduct}
+            />
+          )}
+          {(filteredProducts.length === 0) ? (
+            <div className={styles.column}>
+              <div className={styles.noResultContainer}>
+                <h2 className={styles.titleNoResults}>{noResultsMessage}</h2>
+                <hr className={styles.dividingLine} />
+
+                <DisplayedProducts header="Popular Products" noBackground>
+                  {popularProducts
+                    .map((product) => (
+                      <PopularProductCard
+                        key={product.id}
+                        product={product}
+                        setOpen={openModal}
+                        setCurrentProd={setCurrentProd}
+                      />
+                    ))}
+                </DisplayedProducts>
+              </div>
             </div>
           ) : (
-            <>
-              {(filteredProducts.length === 0) ? (
-                <div className={styles.noResultContainer}>
-                  <h2 className={styles.titleNoResults}>{noResultsMessage}</h2>
-                  <hr className={styles.dividingLine} />
-                  <DisplayedProducts apiError={apiError} header="Popular Products" noBackground>
-                    {popularProducts
-                      .map((product) => (
-                        <PopularProductCard
-                          key={product.id}
-                          product={product}
-                          setOpen={openModal}
-                          setCurrentProd={setCurrentProd}
-                        />
-                      ))}
-                  </DisplayedProducts>
-                </div>
-              ) : (
-                <>
-                  <SideNav submitHandler={applyFilters} />
-                  <h1 className={styles.title}>Search Results</h1>
-                  <div className={styles.productGrid}>
-                    {isOpen && (
+            <div className={styles.row}>
+              <SideNav submitHandler={applyFilters} />
+              <div className={styles.column}>
+                <FilterMenu
+                  onChange={handlePriceFilterChange}
+                  priceFilter={priceFilter}
+                />
+                {isRick && <RickModal onClick={closeRickModal} isRick={isRick} dept="Search" />}
+                <button
+                  type="button"
+                  className={styles.button}
+                  onClick={openRickModal}
+                >
+                  Click for a special surprise!
+                </button>
+                <DepartmentBanner department="Search Results" />
+                {/* <h1 className={styles.title}>Search Results</h1> */}
+                <div className={styles.productGrid}>
+                  {isOpen && (
                     <Modal
                       onClick={closeModal}
                       isOpen={isOpen}
                       product={currentProduct}
                     />
-                    )}
-                    {currentItems.map((result) => (
-                      <div key={result.id} className={styles.productCard}>
-                        <ProductCard
-                          product={result}
-                          setOpen={openModal}
-                          setCurrentProd={setCurrentProd}
-                        />
-                      </div>
-                    ))}
-                  </div>
-                  <Pagination
-                    itemsPerPage={itemsPerPage}
-                    totalItems={filteredProducts.length}
-                    currentPage={currentPage}
-                    paginate={paginate}
-                  />
-                </>
-              )}
-            </>
+                  )}
+                  {currentItems.map((result) => (
+                    <div key={result.id} className={styles.productCard}>
+                      <ProductCard
+                        product={result}
+                        setOpen={openModal}
+                        setCurrentProd={setCurrentProd}
+                      />
+                    </div>
+                  ))}
+                </div>
+                <Pagination
+                  totalItems={filteredProducts.length}
+                  currentPage={currentPage}
+                  paginate={paginate}
+                  itemsPerPage={itemsPerPage}
+                  onItemsPerPageChange={handleItemsPerPageChange}
+                />
+
+              </div>
+            </div>
           )}
         </>
       )}

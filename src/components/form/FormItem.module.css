@@ -3,10 +3,12 @@
   width: 100%;
   padding: .5em;
   box-sizing: border-box;
+  font-family: var(--body-font);
 }
 
 .label {
   font-weight: 700;
-  color: #666666;
+  color: var(--yale-blue-color);
   margin-bottom: .5em;
+  font-family: var(--body-font);
 }

@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+import { NavLink } from 'react-router-dom';
 import {
   EmailOutlined, Visibility, VisibilityOff, VpnKey
 } from '@material-ui/icons';
 import Button from '../button/Button';
+import { getInputType } from '../../utils/common';
 import styles from './input.module.css';
 
 /**
@@ -16,9 +18,10 @@ import styles from './input.module.css';
  * @returns Input component
  */
 const Input = ({
-  type, name, label, value, onChange, placeHolder, error, isValid, errorMessage
+  type, name, label, value, onChange,
+  placeHolder, error, isValid, errorMessage, className, handleClose
 }) => {
-  const [inputType, setInputType] = useState('password');
+  const [inputType, setInputType] = useState(getInputType(type));
   const [icon, setIcon] = useState(<VisibilityOff />);
 
   const handleToggle = () => {
@@ -31,18 +34,27 @@ const Input = ({
     }
   };
 
+  const renderIcon = () => {
+    switch (name) {
+      case 'email':
+        return <EmailOutlined style={{ position: 'absolute' }} />;
+      case 'password':
+        return <VpnKey style={{ position: 'absolute' }} />;
+      default:
+        return null;
+    }
+  };
+
   return (
     <>
-      <label className={styles.label} htmlFor={name}>{label}</label>
+      {label && <label className={styles.label} htmlFor={name}>{label}</label>}
       <div className={styles.row}>
-        {name === 'email' ? <EmailOutlined style={{ position: 'absolute' }} />
-          : <VpnKey style={{ position: 'absolute' }} />}
-
+        {renderIcon(name)}
         <input
           value={value}
           onChange={onChange}
-          className={styles.input}
-          type={name === 'password' ? inputType : type}
+          className={`${styles[className]}`}
+          type={inputType}
           name={name}
           placeholder={value || placeHolder}
         />
@@ -52,8 +64,8 @@ const Input = ({
         {type === 'email' && error ? (
           <>
             {error}
-            <Button className="linkButtonError">
-              Sign Up?
+            <Button className="linkButtonError" onClick={handleClose}>
+              <NavLink to="/signup" className={styles.errorLink}>Sign Up?</NavLink>
             </Button>
           </>
         ) : null}

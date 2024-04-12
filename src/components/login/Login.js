@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { NavLink } from 'react-router-dom';
 import styles from './login.module.css';
 import Button from '../button/Button';
 import Input from '../input/Input';
@@ -18,7 +19,7 @@ const Login = ({ handleClose, setUser }) => {
     label: 'Email',
     errorMessage: 'Must be a valid email',
     isValid: true,
-    value: ''
+    value: 'elementary@watson.uk'
   });
 
   const [passwordInput, setPasswordInput] = useState({
@@ -27,7 +28,7 @@ const Login = ({ handleClose, setUser }) => {
     label: 'Password',
     errorMessage: 'Please enter a password',
     isValid: true,
-    value: ''
+    value: 'P@$$w0rd'
   });
 
   const [error, setError] = useState(null);
@@ -77,7 +78,7 @@ const Login = ({ handleClose, setUser }) => {
     setUser(data);
     handleClose();
 
-    if (data.savedCart !== null) {
+    if (data.savedCart[1] > 0) {
       const cartData = data.savedCart[0];
       const itemCount = data.savedCart[1];
       cartService.initializeCart(cartData, itemCount, cartDispatch);
@@ -123,6 +124,7 @@ const Login = ({ handleClose, setUser }) => {
 
         <form className={styles.loginForm}>
           <Input
+            className="loginInput"
             name={emailInput.name}
             type={emailInput.type}
             label={emailInput.label}
@@ -131,8 +133,10 @@ const Login = ({ handleClose, setUser }) => {
             error={error === USER_NOT_EXIST ? error : null}
             isValid={emailInput.isValid}
             errorMessage={emailInput.errorMessage}
+            handleClose={handleClose}
           />
           <Input
+            className="loginInput"
             name={passwordInput.name}
             type={passwordInput.type}
             label={passwordInput.label}
@@ -146,7 +150,9 @@ const Login = ({ handleClose, setUser }) => {
           <Button isSubmit name="Login" className="loginFormButton" onClick={handleSubmit}>
             Login
           </Button>
-          <Button className="linkButton">Sign Up</Button>
+          <Button className="linkButton" onClick={handleClose}>
+            <NavLink to="/signup" className={styles.signupButton}>Sign Up</NavLink>
+          </Button>
 
         </form>
       </div>

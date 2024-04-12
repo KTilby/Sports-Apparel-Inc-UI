@@ -10,7 +10,7 @@ import Soccer from '../assets/images/product-images/Soccer.jpg';
 import Weightlifting from '../assets/images/product-images/Weightlifting.jpg';
 // Pets Images
 import Swimming from '../assets/images/product-images/pets/Swimming.png';
-import OutdoorAdventure from '../assets/images/product-images/pets/OutdoorAdventure.jpg';
+import Outdoors from '../assets/images/product-images/pets/OutdoorAdventure.jpg';
 import SpringPole from '../assets/images/product-images/pets/SpringPole.jpg';
 import PlayGyms from '../assets/images/product-images/pets/PlayGyms.png';
 import CarRides from '../assets/images/product-images/pets/CarRides.png';
@@ -39,8 +39,8 @@ const productImageControl = (category, isPets) => {
         return PlayGyms;
       case 'Swimming':
         return Swimming;
-      case 'Outdoor Adventure':
-        return OutdoorAdventure;
+      case 'Outdoors':
+        return Outdoors;
       default:
         return PLACEHOLDER_IMAGE;
     }

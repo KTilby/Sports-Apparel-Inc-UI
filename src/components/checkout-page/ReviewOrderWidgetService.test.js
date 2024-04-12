@@ -1,4 +1,4 @@
-import { toPrice, getSubtotal } from './ReviewOrderWidgetService';
+import { toPrice, getSubtotal, calculateTaxes } from './ReviewOrderWidgetService';
 
 describe('toPrice', () => {
   it('Converts decimals to price string', () => {
@@ -26,8 +26,18 @@ describe('getSubtotal', () => {
         price: 3.50
       }
     ];
-    const expected = '$23.48';
+    const expected = 23.48;
 
     expect(getSubtotal(products)).toEqual(expected);
+  });
+});
+
+describe('calculateTaxes', () => {
+  it('returns tax amount for given subtotal and tax rate', () => {
+    const subtotal = 398.76;
+    const taxRate = 0.06;
+    const expected = 23.9256;
+
+    expect(calculateTaxes(subtotal, taxRate)).toEqual(expected);
   });
 });

@@ -6,7 +6,6 @@ import {
 } from '@material-ui/core';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
-import ShareIcon from '@material-ui/icons/Share';
 import styles from './productCard.module.css';
 import { useCart } from '../checkout-page/CartContext';
 import { useWishList } from '../wishlist-page/WishListContext';
@@ -93,9 +92,6 @@ const ProductCard = ({ product, setOpen, setCurrentProd }) => {
           <FavoriteIcon style={{ color: 'var(--flame-orange-color)', width: '30px', height: '30px' }} />
         </Button>
         )}
-        <Button className="buttonUnstyled" aria-label="share">
-          <ShareIcon style={{ color: 'var(--flame-orange-color)', width: '30px', height: '30px' }} />
-        </Button>
         <Button className="buttonUnstyled" aria-label="add to shopping cart" onClick={handleAddToCart}>
           <AddShoppingCartIcon style={{ color: 'var(--flame-orange-color)', width: '30px', height: '30px' }} />
         </Button>

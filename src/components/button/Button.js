@@ -3,7 +3,7 @@ import styles from './Button.module.css';
 
 const Button = (props) => {
   const {
-    onClick, children, className, isSubmit, name
+    onClick, children, className, disabled, isSubmit, name
   } = props;
 
   return (
@@ -12,6 +12,7 @@ const Button = (props) => {
       name={name}
       onClick={onClick}
       type={isSubmit ? 'submit' : 'button'}
+      disabled={disabled}
     >
       {children}
     </button>

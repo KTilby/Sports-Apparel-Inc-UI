@@ -4,12 +4,14 @@ import {
   Avatar, Card, CardHeader, CardMedia, CardContent, CardActions,
   Typography
 } from '@material-ui/core';
-import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
+import { AddShoppingCart, Favorite } from '@material-ui/icons';
 import styles from './popularProductCard.module.css';
 import { useCart } from '../checkout-page/CartContext';
+import { useWishList } from '../wishlist-page/WishListContext';
 import Button from '../button/Button';
 import getImage from '../../utils/productImageControl';
 import cartService from '../checkout-page/CartService';
+import wishListService from '../wishlist-page/WishListService';
 import { getDemographicColor, getFirstCharacter } from '../../utils/common';
 
 /**
@@ -20,6 +22,13 @@ import { getDemographicColor, getFirstCharacter } from '../../utils/common';
  */
 const PopularProductCard = ({ product, setOpen, setCurrentProd }) => {
   const { dispatch, state } = useCart();
+  const { wishDispatch, wishState } = useWishList();
+  const user = JSON.parse(sessionStorage.getItem('user'));
+  const isCustomerLoggedIn = user && user.role === 'Customer';
+
+  const handleAddToWishList = () => {
+    wishListService.addToWishList(product, wishDispatch, wishState);
+  };
 
   const handleAddToCart = () => {
     cartService.addToCart(product, dispatch, state);
@@ -75,8 +84,13 @@ const PopularProductCard = ({ product, setOpen, setCurrentProd }) => {
         </CardContent>
       </Link>
       <CardActions className={styles.buttonActions} disableSpacing>
+        {isCustomerLoggedIn && (
+          <Button className="buttonUnstyled" aria-label="add to favorites" onClick={handleAddToWishList}>
+            <Favorite style={{ color: 'var(--flame-orange-color)', width: '30px', height: '30px' }} />
+          </Button>
+        )}
         <Button className="buttonUnstyled" aria-label="add to shopping cart" onClick={handleAddToCart}>
-          <AddShoppingCartIcon style={{ color: 'var(--flame-orange-color)', width: '30px', height: '30px' }} />
+          <AddShoppingCart style={{ color: 'var(--flame-orange-color)', width: '30px', height: '30px' }} />
         </Button>
         <Button className="viewButton" onClick={openModal} aria-label="view product details">
           View

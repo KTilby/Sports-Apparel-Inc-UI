@@ -1,14 +1,16 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
   Card, CardActions, Typography, CardMedia, CardHeader, Avatar
 } from '@material-ui/core';
-import { AddShoppingCart } from '@material-ui/icons';
+import { AddShoppingCart, Favorite } from '@material-ui/icons';
 import cartService from '../checkout-page/CartService';
 import styles from './Modal.module.css';
 import Button from '../button/Button';
 import getImage from '../../utils/productImageControl';
 import { getDemographicColor, getFirstCharacter, parseColorCodeAndName } from '../../utils/common';
 import { useCart } from '../checkout-page/CartContext';
+import { useWishList } from '../wishlist-page/WishListContext';
+import wishListService from '../wishlist-page/WishListService';
 
 const Modal = ({ onClick, isOpen, product }) => {
   const { dispatch, state } = useCart();
@@ -16,9 +18,11 @@ const Modal = ({ onClick, isOpen, product }) => {
   const modalRef = useRef();
   const swatches = [product.primaryColorCodeWithName, product.secondaryColorCodeWithName];
   const swatchesColorCodeAndName = swatches.map(parseColorCodeAndName);
-
   const user = JSON.parse(sessionStorage.getItem('user'));
   const isCustomerLoggedIn = user && user.role === 'Customer';
+  const { wishDispatch, wishState } = useWishList();
+
+  const [showContent, setShowContent] = useState(false);
 
   useEffect(() => {
     const handler = (e) => {
@@ -32,13 +36,22 @@ const Modal = ({ onClick, isOpen, product }) => {
     };
   });
 
+  useEffect(() => {
+    setShowContent(true);
+  }, []);
+
   const handleAddToCart = () => {
     cartService.addToCart(currentProduct, dispatch, state);
   };
 
+  const handleAddToWishList = () => {
+    wishListService.addToWishList(product, wishDispatch, wishState);
+  };
+
   return (
-    <div className={styles.modalBackdrop}>
-      <Card className={styles.root} ref={modalRef}>
+    <div className={`${styles.modalBackdrop} ${showContent && styles.showBackdrop}`}>
+
+      <Card className={`${styles.root} ${showContent && styles.showModal}`} ref={modalRef}>
         <CardHeader
           classes={{
             root: styles.header,
@@ -122,13 +135,16 @@ const Modal = ({ onClick, isOpen, product }) => {
                   </div>
                 ))}
               </div>
-              {isCustomerLoggedIn && (
-                <CardActions className={styles.buttonActions} disableSpacing>
-                  <Button className="buttonUnstyled" aria-label="add to shopping cart" onClick={handleAddToCart}>
-                    <AddShoppingCart style={{ color: 'var(--flame-orange-color)', width: '30px', height: '30px' }} />
-                  </Button>
-                </CardActions>
-              )}
+              <CardActions className={styles.buttonActions} disableSpacing>
+                {isCustomerLoggedIn && (
+                <Button className="buttonUnstyled" aria-label="add to shopping cart" onClick={handleAddToWishList}>
+                  <Favorite style={{ color: 'var(--flame-orange-color)', width: '30px', height: '30px' }} />
+                </Button>
+                )}
+                <Button className="buttonUnstyled" aria-label="add to shopping cart" onClick={handleAddToCart}>
+                  <AddShoppingCart style={{ color: 'var(--flame-orange-color)', width: '30px', height: '30px' }} />
+                </Button>
+              </CardActions>
             </div>
           </div>
         </div>
