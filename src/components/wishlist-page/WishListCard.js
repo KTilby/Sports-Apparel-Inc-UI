@@ -34,7 +34,6 @@ const WishListCard = ({ product, setOpen, setCurrentProd }) => {
   };
 
   const handleDeleteFromWishlist = () => {
-    console.log('handle delete from wish');
     wishListService.deleteFromWishList(product, wishDispatch, wishState);
   };
 
